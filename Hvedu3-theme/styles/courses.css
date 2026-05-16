@@ -1,0 +1,303 @@
+/* ==============================================
+   COURSES SECTION — "Khoá học nổi bật"
+   Thiết kế dựa trên Figma node 1:210
+   ============================================== */
+
+.courses-section {
+    background-color: #f2f4f7;
+    padding: 60px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ---- Tiêu đề + nút "Xem tất cả" ---- */
+.courses-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.courses-title {
+    font-size: 38px;
+    font-weight: 600;
+    color: #35afa5;
+    line-height: 28px;
+    margin: 0;
+}
+
+/* Nút "Xem tất cả" */
+.btn-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #39b8ad;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 30px;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    white-space: nowrap;
+}
+
+.btn-view-all:hover {
+    background-color: #2da099;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.btn-view-all svg {
+    flex-shrink: 0;
+}
+
+/* ---- Lưới card ---- */
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+
+/* ============ COURSE CARD ============ */
+.course-card {
+    background: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    /* Chiều cao cố định theo Figma */
+    min-height: 338px;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.course-card:hover {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+/* ---- Thumbnail trái ---- */
+.course-thumbnail {
+    flex-shrink: 0;
+    width: 261px;
+    position: relative;
+    overflow: hidden;
+}
+
+.course-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---- Nội dung phải ---- */
+.course-body {
+    flex: 1;
+    padding: 40px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+/* Badge danh mục */
+.course-badge {
+    display: inline-block;
+    background-color: #e6f6f4;
+    color: #35afa5;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    align-self: flex-start;
+}
+
+/* Tên khoá học */
+.course-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #353535;
+    line-height: 28px;
+    margin: 0 0 18px 0;
+}
+
+/* Thẻ meta: số bài + hình thức */
+.course-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.course-meta-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 4px 14px;
+    font-size: 14px;
+    color: rgba(20, 20, 20, 0.9);
+    box-shadow: 0 0 10px 2px #dae7ff;
+    white-space: nowrap;
+}
+
+.course-meta-tag img {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* Divider ngang */
+.course-divider {
+    border: none;
+    border-top: 0.5px solid #cecece;
+    margin: 0 0 18px 0;
+}
+
+/* Thông tin giảng viên */
+.course-instructor {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.course-instructor-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.course-instructor-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.course-instructor-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #484848;
+    line-height: normal;
+}
+
+.course-instructor-role {
+    font-size: 12px;
+    font-weight: 500;
+    color: #35afa5;
+    line-height: 24px;
+}
+
+/* Đánh giá sao */
+.course-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+}
+
+.course-rating img {
+    width: 15px;
+    height: 15px;
+}
+
+.course-rating-score {
+    font-size: 12px;
+    font-weight: 500;
+    color: #3e3e3e;
+    line-height: 28px;
+    margin-left: 4px;
+}
+
+/* Hàng giá + nút xem chi tiết */
+.course-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+
+.course-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #373737;
+}
+
+.btn-course-detail {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.5px solid #cecece;
+    border-radius: 25px;
+    padding: 7px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #242424;
+    background: transparent;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-course-detail:hover {
+    background-color: #39b8ad;
+    color: #ffffff;
+    border-color: #39b8ad;
+}
+
+/* ---- Hình trang trí góc phải ---- */
+.courses-decor {
+    position: absolute;
+    top: 85px;
+    right: 0;
+    width: 168px;
+    pointer-events: none;
+}
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
+@media (max-width: 1100px) {
+    .courses-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .courses-section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .courses-title {
+        font-size: 28px;
+    }
+
+    .course-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .course-thumbnail {
+        width: 100%;
+        height: 200px;
+    }
+
+    .course-body {
+        padding: 24px 20px 20px;
+    }
+}
+
+@media (max-width: 320px) {
+    .course-instructor {
+        flex-direction: column;
+    }
+    .course-rating{
+        align-items: center !important;
+    }
+}

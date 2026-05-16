@@ -1,0 +1,82 @@
+/* =============================================
+   Stats Section — Brand styles, Bootstrap lo layout
+   ============================================= */
+
+.stats {
+    position: relative;
+    background-color: #316ce2;
+    overflow: hidden;
+}
+
+/* Overlay hình ảnh nền với hiệu ứng blend */
+.stats-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-image: url('../assets/stats-bg.png');
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: multiply;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Mỗi cột số liệu thống kê */
+.stat-item {
+    color: white;
+    padding: 33px 16px;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    /* margin-bottom: 16px; */
+}
+
+.stat-label {
+    font-size: 20px;
+    font-weight: 500;
+    color: white;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.stat-label strong {
+    font-weight: 600;
+}
+
+/* Đường kẻ dọc ngăn cách */
+.stat-divider {
+    width: 1px;
+    height: 218px;
+    background: #F4F4F459;
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .stat-item {
+        flex: 0 0 50%;
+        padding: 30px 16px;
+    }
+
+    .stat-label {
+        white-space: normal;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .stat-item {
+        flex: 0 0 100%;
+        padding: 20px 16px;
+    }
+
+    .stat-number {
+        font-size: 28px;
+    }
+
+    .stat-label {
+        font-size: 16px;
+    }
+}

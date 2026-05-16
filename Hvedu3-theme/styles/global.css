@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Colors */
+    --primary-color: #39B8AD;
+    --secondary-color: #39B8AD;
+    --text-color: #282828;
+    --white: #ffffff;
+    --bg-color: #ffffff;
+    --badge-bg: #1B3933;
+
+    /* Spacing */
+    --container-max-width: 1440px;
+    --nav-height: 80px;
+
+    /* Typography */
+    --font-family: 'Inter', sans-serif;
+}
+
+/* Override Bootstrap body defaults */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}

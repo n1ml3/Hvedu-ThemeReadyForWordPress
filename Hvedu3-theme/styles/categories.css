@@ -1,0 +1,194 @@
+/* ==============================================
+   CATEGORIES SECTION — "Khám phá các danh mục hàng đầu"
+   Thiết kế dựa trên Figma node 1:371
+   ============================================== */
+
+.categories-section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Khung chứa viền bo góc nền tối */
+.categories-wrapper {
+    background-color: #18181b;
+    border-radius: 30px;
+    padding: 60px 50px;
+}
+
+/* ---- Header: nút "Xem tất cả" ---- */
+.categories-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+}
+
+/* Nút "Xem tất cả" - tái sử dụng phần lớn từ .btn-view-all của course nhưng chỉnh lại xíu nếu cần */
+.categories-header .btn-view-all {
+    background-color: #39b8ad;
+    color: #ffffff;
+}
+
+/* ---- Lưới danh mục (Grid 5 cột) ---- */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px;
+}
+
+/* ============ CATEGORY CARD ============ */
+.category-card {
+    background-color: #1f2026;
+    border-radius: 15px;
+    height: 325px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+    padding: 32px 20px;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    background-color: #272830;
+}
+
+/* Icon box tròn ở trên */
+.category-icon-wrapper {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* Hình icon thực tế */
+.category-icon-wrapper .icon-main {
+    position: relative;
+    z-index: 1;
+    width: 50px;
+    height: 47px;
+    object-fit: contain;
+}
+
+/* Tên danh mục */
+.category-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 28px;
+    text-align: center;
+    margin: 0;
+}
+
+/* Nút mũi tên ở dưới cùng */
+.category-arrow-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid #FFFFFF;
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.category-card:hover .category-arrow-btn {
+    background-color: #39b8ad;
+    border-color: #FFFFFF;
+}
+
+.category-arrow-btn .arrow-icon {
+    position: relative;
+    z-index: 1;
+    width: 24px;
+    height: 24px;
+}
+
+.welcome-badge {
+    margin-top: 45px;
+}
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
+
+/* Màn hình nhỏ hơn 1200px (Desktop nhỏ) */
+@media (max-width: 1200px) {
+    .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+    .welcome-badge {
+        margin-top: 20px;
+    }
+}
+
+/* Màn hình nhỏ hơn 1024px (Tablet & Laptop nhỏ) — Bắt đầu Horizontal Scroll */
+@media (max-width: 1024px) {
+    .categories-grid {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 15px; /* Tạo không gian cho thanh cuộn hoặc tránh sát card */
+        gap: 20px;
+        scroll-snap-type: x mandatory; /* Giúp card dừng đúng vị trí khi vuốt */
+        -webkit-overflow-scrolling: touch; /* Mượt mà trên iOS */
+        
+        /* Ẩn thanh cuộn mặc định (tùy chọn UI sạch hơn) */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+
+    .categories-grid::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .category-card {
+        flex: 0 0 280px; /* Độ rộng cố định cho mỗi card khi scroll ngang */
+        scroll-snap-align: start;
+    }
+
+    .categories-header {
+        justify-content: flex-end;
+    }
+}
+
+/* Màn hình nhỏ hơn 768px (Mobile & Tablet dọc) */
+@media (max-width: 768px) {
+    .categories-section {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .categories-wrapper {
+        padding: 40px 20px;
+    }
+
+    .category-card {
+        flex: 0 0 260px; /* Thu nhỏ card một chút trên mobile */
+    }
+}
+
+/* Màn hình nhỏ hơn 480px (Mobile nhỏ) */
+@media (max-width: 480px) {
+    .categories-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        text-align: center;
+    }
+}

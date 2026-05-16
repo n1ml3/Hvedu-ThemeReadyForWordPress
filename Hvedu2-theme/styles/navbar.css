@@ -1,0 +1,243 @@
+.navbar {
+    padding: 0 80px;
+    height: var(--nav-height);
+    background-color: var(--white) !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+    padding-left: 10px;
+}
+
+/* Logo */
+.navbar-brand.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 55px;
+    height: 45px;
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-title {
+    color: var(--primary-color);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.logo-subtitle {
+    color: var(--secondary-color);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+/* Nav links */
+.navbar-nav .nav-link {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color) !important;
+    padding: 0 !important;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+    color: var(--primary-color) !important;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--primary-color) !important;
+    font-weight: 600;
+}
+
+/* Active underline indicator — chỉ hiện trên desktop */
+.navbar-nav .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 100%;
+    min-width: 80px;
+    height: 2px;
+
+    background-color: var(--primary-color);
+
+    /* Animation slide-in khi xuất hiện */
+    animation: nav-indicator-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Polygon1.svg — tam giác trỏ xuống, đặt giữa phía trên đường line */
+.navbar-nav .nav-link.active::before {
+    content: '';
+    position: absolute;
+    /* Đáy tam giác chạm vào top của line.
+       Line bottom: -10px, line height: 2px → line top: -8px từ nav-link bottom.
+       Polygon cao 6px → bottom của polygon đặt tại -4px để căn trực quan */
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 14px;  /* Khớp viewBox của Polygon1.svg */
+    height: 6px;
+
+    background-image: url('../assets/Polygon1.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+
+    /* Drop-in nhẹ, delay 0.1s để xuất hiện sau đường line */
+    animation: nav-polygon-in 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+    z-index: 1;
+}
+
+@keyframes nav-indicator-in {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: calc(100% + 16px);
+        opacity: 1;
+    }
+}
+
+@keyframes nav-polygon-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.arrow-icon {
+    width: 12px;
+    height: 12px;
+}
+
+/* Right side actions */
+.nav-actions {
+    flex-shrink: 0;
+    gap: 36px !important;
+}
+
+.icons-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 17px;
+    border: 1px solid #C7C7C7;
+    border-radius: 30px;
+    padding: 8px 16px;
+    height: 44px;
+}
+
+.divider {
+    width: 1px;
+    height: 42px;
+    background-color: #C7C7C7;
+}
+
+.icon-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -15px;
+    right: -8px;
+    background-color: var(--badge-bg);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.btn-login {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 32px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    background-color: #012a5e;
+}
+
+@media (max-width: 1439px) {
+    .nav-item {
+        padding: 0;
+    }
+    
+    .navbar {
+        padding: 0;
+    }
+
+    .nav-actions {
+        gap: 10px !important;
+    }
+
+    .nav-link {
+        font-size: 14px !important;
+    }
+
+    .btn-login {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .icons-group {
+        padding: 8px 16px;
+        height: 40px;
+    }
+}
+
+/* Responsive — mobile/tablet */
+@media (max-width: 991.98px) {
+    .navbar {
+        padding: 0px !important;
+        height: auto;
+        min-height: 64px;
+    }
+
+    /* Ẩn active indicator khi menu đang dạng collapse */
+    .navbar-nav .nav-link.active::after,
+    .navbar-nav .nav-link.active::before {
+        display: none;
+    }
+
+    /* Thêm padding cho nav links trong menu collapse */
+    .navbar-nav .nav-link {
+        padding: 10px 0 !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-actions {
+        padding: 12px 0;
+    }
+}

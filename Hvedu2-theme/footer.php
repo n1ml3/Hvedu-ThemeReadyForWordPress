@@ -1,0 +1,88 @@
+<footer class="footer">
+    <div class="container-xxl px-4">
+
+        <!-- Logo -->
+        <div class="d-flex align-items-center gap-3 mb-4 nav-logo">
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/logo.svg" alt="HVedu Logo" class="logo-icon">
+            <div class="logo-text">
+                <span class="logo-title">HVEducation</span>
+                <span class="logo-subtitle">Online learning solution</span>
+            </div>
+        </div>
+
+        <!-- 3 cột chính dùng Bootstrap grid -->
+        <div class="row g-5">
+
+            <!-- Cột 1: Thông tin liên hệ -->
+            <div class="col-12 col-md-6 col-lg-5">
+                <h3 class="footer-col-title mb-4">Hoàng Vũ Education</h3>
+                <div class="contact-info">
+                    <div class="info-item">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/location.svg" alt="Địa chỉ" class="info-icon">
+                        <div>
+                            <strong>Địa chỉ:</strong>
+                            <p info-text>Số 33, Trung Kính, Cầu Giấy, Hà Nội</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/phone.svg" alt="Hotline" class="info-icon">
+                        <div>
+                            <strong>Hotline:</strong>
+                            <p info-text>(+84)123456789</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/mail.svg" alt="Email" class="info-icon">
+                        <div>
+                            <strong>Email:</strong>
+                            <p info-text>hoangvugroup@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột 2: Liên kết -->
+            <div class="col-6 col-md-3 col-lg-2">
+                <h3 class="footer-col-title mb-4">Thông tin</h3>
+                <div class="footer-links">
+                    <a href="<?php echo home_url('/'); ?>">Trang chủ</a>
+                    <a href="<?php echo home_url('/introduce'); ?>">Giới thiệu</a>
+                    <a href="#">Khoá học</a>
+                    <a href="#">Tài liệu học</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Liên hệ</a>
+                </div>
+            </div>
+
+            <!-- Cột 3: Đăng ký & Mạng xã hội -->
+            <div class="col-12 col-md-6 col-lg-5">
+                <h3 class="footer-col-title mb-3">Kết nối với chúng tôi</h3>
+                <p class="subscribe-text mb-3">Nhận thông tin mới nhất về sản phẩm dịch vụ, kiến thức về mẹ và bé</p>
+                <div class="input-group mb-4">
+                    <input type="email" placeholder="Email của bạn" class="form-control subscribe-input">
+                    <button type="submit" class="subscribe-btn d-flex align-items-center gap-2">
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/mail-send.svg" alt="" class="btn-icon">
+                        Gửi
+                    </button>
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-item"><img src="<?php echo get_template_directory_uri(); ?>/assets/facebook.svg" alt="Facebook" class="social-icon"></a>
+                    <a href="#" class="social-item"><img src="<?php echo get_template_directory_uri(); ?>/assets/youtube.svg" alt="YouTube" class="social-icon"></a>
+                    <a href="#" class="social-item"><img src="<?php echo get_template_directory_uri(); ?>/assets/linkedin.svg" alt="LinkedIn" class="social-icon"></a>
+                    <a href="#" class="social-item"><img src="<?php echo get_template_directory_uri(); ?>/assets/twitter.svg" alt="Twitter" class="social-icon"></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+            <p class="copyright">© 2025 HVG.All Rights Reserved.</p>
+        </div>
+
+    </div>
+</footer>
+
+<?php wp_footer(); ?>
+</body>
+</html>
