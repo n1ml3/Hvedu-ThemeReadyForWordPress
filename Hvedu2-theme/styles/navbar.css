@@ -62,7 +62,7 @@
 
 .dropdown-menu {
     border-radius: 10px;
-    border: 0px;
+    border: 1px solid var(--primary-color);
 }
 
 /* Custom dropdown arrow */
