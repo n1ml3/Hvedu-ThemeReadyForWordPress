@@ -6,7 +6,7 @@
             <?php while ( have_posts() ) : the_post(); ?>
                 
                 <header class="page-header mb-5 text-center">
-                    <h1 class="page-title fw-bold text-primary" style="color: #0056b3 !important; font-size: 2.5rem; margin-bottom: 30px;">
+                    <h1 class="page-title fw-bold text-primary" style="color: #013475 !important; font-size: 40px; margin-bottom: 30px;">
                         <?php the_title(); ?>
                     </h1>
                 </header>
