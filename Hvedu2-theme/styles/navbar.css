@@ -60,6 +60,27 @@
     font-weight: 600;
 }
 
+/* Custom dropdown arrow */
+.navbar-nav .dropdown-toggle::after {
+    border: none !important;
+    content: "";
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-image: url('../assets/arrow-down.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    vertical-align: middle;
+    margin-left: 6px;
+    transition: transform 0.3s ease;
+}
+
+/* Xoay mũi tên khi mở menu */
+.navbar-nav .dropdown-toggle.show::after {
+    transform: rotate(180deg);
+}
+
 /* Active underline indicator — chỉ hiện trên desktop */
 .navbar-nav .nav-link.active::after {
     content: '';
