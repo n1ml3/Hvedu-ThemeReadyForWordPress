@@ -3,7 +3,7 @@
 <main class="single-main-content">
     <div class="container-xxl px-4 py-5">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="">
                 <?php if ( have_posts() ) : ?>
                     <?php while ( have_posts() ) : the_post(); ?>
                         
