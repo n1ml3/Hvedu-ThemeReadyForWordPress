@@ -60,29 +60,56 @@ function hvedu_auto_setup_pages() {
 }
 add_action('init', 'hvedu_auto_setup_pages');
 
-// Thêm class 'nav-item' cho thẻ <li> của menu
-function hvedu_add_menu_li_class($classes, $item, $args) {
-    if(isset($args->add_li_class)) {
+// Thêm class cho thẻ <li> của menu
+function hvedu_add_menu_li_class($classes, $item, $args, $depth = 0) {
+    // Thêm class 'nav-item' cho các item ở cấp cao nhất
+    if(isset($args->add_li_class) && $depth === 0) {
         $classes[] = $args->add_li_class;
     }
+
+    // Nếu item này có menu con, thêm class 'dropdown' của Bootstrap
+    if (in_array('menu-item-has-children', $classes)) {
+        $classes[] = 'dropdown';
+    }
+
     return $classes;
 }
-add_filter('nav_menu_css_class', 'hvedu_add_menu_li_class', 1, 3);
+add_filter('nav_menu_css_class', 'hvedu_add_menu_li_class', 10, 4);
 
-// Thêm class 'nav-link' cho thẻ <a> của menu
-function hvedu_add_menu_a_class($attrs, $item, $args) {
-    if(isset($args->add_a_class)) {
-        $classes = array($args->add_a_class);
-        
-        // Nếu mục này là trang hiện tại, thêm class 'active' để hiện indicator
-        if (in_array('current-menu-item', $item->classes) || 
-            in_array('current_page_item', $item->classes) ||
-            in_array('current-menu-ancestor', $item->classes)) {
-            $classes[] = 'active';
-        }
-        
-        $attrs['class'] = implode(' ', $classes);
+// Thêm class và thuộc tính cho thẻ <a> của menu
+function hvedu_add_menu_a_class($attrs, $item, $args, $depth = 0) {
+    $classes = array();
+
+    // Thêm class tùy thuộc vào cấp độ menu
+    if ($depth === 0) {
+        $classes[] = isset($args->add_a_class) ? $args->add_a_class : 'nav-link';
+    } else {
+        $classes[] = 'dropdown-item';
     }
+    
+    // Nếu mục này là trang hiện tại, thêm class 'active'
+    if (in_array('current-menu-item', $item->classes) || 
+        in_array('current_page_item', $item->classes) ||
+        in_array('current-menu-ancestor', $item->classes)) {
+        $classes[] = 'active';
+    }
+
+    // Nếu có menu con, thiết lập thuộc tính dropdown cho thẻ a
+    if (in_array('menu-item-has-children', $item->classes)) {
+        $classes[] = 'dropdown-toggle';
+        $attrs['data-bs-toggle'] = 'dropdown';
+        $attrs['aria-expanded'] = 'false';
+        $attrs['role'] = 'button';
+    }
+
+    $attrs['class'] = implode(' ', $classes);
     return $attrs;
 }
-add_filter('nav_menu_link_attributes', 'hvedu_add_menu_a_class', 1, 3);
+add_filter('nav_menu_link_attributes', 'hvedu_add_menu_a_class', 10, 4);
+
+// Thêm class 'dropdown-menu' cho thẻ <ul> của submenu
+function hvedu_add_submenu_class($classes, $args, $depth) {
+    $classes[] = 'dropdown-menu';
+    return $classes;
+}
+add_filter('nav_menu_submenu_css_class', 'hvedu_add_submenu_class', 10, 3);
