@@ -580,53 +580,48 @@
                 <h2 class="blog-title">Blog & kiến thức bổ ích</h2>
 
                 <div class="blog-grid">
-                    <!-- Blog Card 1 -->
-                    <article class="blog-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/boich-banner.webp" alt="Blog Image" class="blog-image">
-                        <div class="blog-content">
-                            <h3 class="blog-card-title">7 Món Ăn Healthy Dễ Làm Cho Người Bận Rộn</h3>
-                            <p class="blog-excerpt">
-                                Không cần chuẩn bị phức tạp hay mất hàng giờ trong bếp, bạn vẫn có thể nạp năng lượng
-                                sạch, lành mạnh...
-                            </p>
-                            <div class="blog-footer">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/lets-icons_date-fill.svg" alt="" class="blog-date-icon">
-                                <span class="blog-date">27/03/2025</span>
-                            </div>
-                        </div>
-                    </article>
+                    <?php
+                    // Cấu hình query để lấy 3 bài viết mới nhất
+                    $args = array(
+                        'post_type'      => 'post',
+                        'posts_per_page' => 3, // Số lượng bài muốn hiển thị
+                        'post_status'    => 'publish',
+                    );
+                    $latest_posts = new WP_Query( $args );
 
-                    <!-- Blog Card 2 -->
-                    <article class="blog-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/boich-banner.webp" alt="Blog Image" class="blog-image">
-                        <div class="blog-content">
-                            <h3 class="blog-card-title">7 Món Ăn Healthy Dễ Làm Cho Người Bận Rộn</h3>
-                            <p class="blog-excerpt">
-                                Không cần chuẩn bị phức tạp hay mất hàng giờ trong bếp, bạn vẫn có thể nạp năng lượng
-                                sạch, lành mạnh...
-                            </p>
-                            <div class="blog-footer">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/lets-icons_date-fill.svg" alt="" class="blog-date-icon">
-                                <span class="blog-date">27/03/2025</span>
+                    // Kiểm tra xem có bài viết nào không
+                    if ( $latest_posts->have_posts() ) :
+                        while ( $latest_posts->have_posts() ) : $latest_posts->the_post(); 
+                    ?>
+                        <article class="blog-card d-flex flex-column">
+                            <a href="<?php the_permalink(); ?>" class="d-block overflow-hidden" style="height: 220px;">
+                                <?php if ( has_post_thumbnail() ) : ?>
+                                    <?php the_post_thumbnail('medium_large', array('alt' => get_the_title(), 'class' => 'blog-image w-100 h-100 object-fit-cover')); ?>
+                                <?php else : ?>
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/boich-banner.webp" alt="<?php the_title_attribute(); ?>" class="blog-image w-100 h-100 object-fit-cover">
+                                <?php endif; ?>
+                            </a>
+                            <div class="blog-content d-flex flex-column flex-grow-1">
+                                <a href="<?php the_permalink(); ?>" class="text-decoration-none">
+                                    <h3 class="blog-card-title text-dark"><?php the_title(); ?></h3>
+                                </a>
+                                <div class="blog-excerpt text-muted mt-3 mb-4">
+                                    <?php echo wp_trim_words( get_the_excerpt(), 20, '...' ); ?>
+                                </div>
+                                <div class="blog-footer pt-3 mt-auto" style="border-top: 1px solid #eee;">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/lets-icons_date-fill.svg" alt="" class="blog-date-icon">
+                                    <span class="blog-date"><?php echo get_the_date('d/m/Y'); ?></span>
+                                </div>
                             </div>
-                        </div>
-                    </article>
-
-                    <!-- Blog Card 3 -->
-                    <article class="blog-card">
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/boich-banner.webp" alt="Blog Image" class="blog-image">
-                        <div class="blog-content">
-                            <h3 class="blog-card-title">7 Món Ăn Healthy Dễ Làm Cho Người Bận Rộn</h3>
-                            <p class="blog-excerpt">
-                                Không cần chuẩn bị phức tạp hay mất hàng giờ trong bếp, bạn vẫn có thể nạp năng lượng
-                                sạch, lành mạnh...
-                            </p>
-                            <div class="blog-footer">
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/lets-icons_date-fill.svg" alt="" class="blog-date-icon">
-                                <span class="blog-date">27/03/2025</span>
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    <?php 
+                        endwhile; 
+                        // Reset lại query để không ảnh hưởng tới các query khác trong trang
+                        wp_reset_postdata();
+                    else : 
+                    ?>
+                        <p class="text-center w-100 py-5">Hiện chưa có bài viết nào.</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </section>
