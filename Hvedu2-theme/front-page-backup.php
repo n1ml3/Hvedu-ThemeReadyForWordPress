@@ -529,71 +529,63 @@ get_header(); ?>
                 </div>
 
                 <div class="info-grid">
-                    <!-- Card 1 -->
-                    <div class="info-card">
-                        <div class="info-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/peoplegroup.webp" alt="Tin tức">
-                        </div>
-                        <div class="info-card-body">
-                            <h3 class="info-card-title">Những dấu hiệu của một doanh nghiệp cần được tái cấu trúc?</h3>
-                            <div class="info-card-meta">
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/stash_data-date-solid.svg" alt="Date"> 19/04/2025
-                                </span>
-                                <span class="info-meta-divider">|</span>
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/solar_user-outline.svg" alt="Author"> admin
-                                </span>
-                            </div>
-                            <p class="info-card-desc">
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
-                            </p>
-                        </div>
-                    </div>
+                    <?php
+                    // Cấu hình query để lấy 3 bài viết mới nhất
+                    $args = array(
+                        'post_type'      => 'post',
+                        'posts_per_page' => 3, // Số lượng bài muốn hiển thị
+                        'post_status'    => 'publish',
+                    );
+                    $latest_posts = new WP_Query( $args );
 
-                    <!-- Card 2 -->
-                    <div class="info-card">
-                        <div class="info-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/peoplegroup.webp" alt="Tin tức">
-                        </div>
-                        <div class="info-card-body">
-                            <h3 class="info-card-title">Những dấu hiệu của một doanh nghiệp cần được tái cấu trúc?</h3>
-                            <div class="info-card-meta">
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/stash_data-date-solid.svg" alt="Date"> 19/04/2025
-                                </span>
-                                <span class="info-meta-divider">|</span>
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/solar_user-outline.svg" alt="Author"> admin
-                                </span>
-                            </div>
-                            <p class="info-card-desc">
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
-                            </p>
-                        </div>
-                    </div>
+                    // Kiểm tra xem có bài viết nào không
+                    if ( $latest_posts->have_posts() ) :
+                        while ( $latest_posts->have_posts() ) : $latest_posts->the_post(); 
+                    ?>
+                            <!-- Bắt đầu vòng lặp hiển thị từng bài viết -->
+                            <div class="info-card">
+                                <a href="<?php the_permalink(); ?>" class="info-card-img text-decoration-none d-block overflow-hidden" style="height: 200px;">
+                                    <?php 
+                                    // Hiển thị ảnh đại diện, nếu không có thì lấy ảnh mặc định
+                                    if ( has_post_thumbnail() ) {
+                                        the_post_thumbnail('medium', array('alt' => get_the_title(), 'style' => 'width:100%; height:100%; object-fit:cover;'));
+                                    } else {
+                                        echo '<img src="' . get_template_directory_uri() . '/assets/peoplegroup.webp" alt="Tin tức mặc định" style="width:100%; height:100%; object-fit:cover;">';
+                                    }
+                                    ?>
+                                </a>
+                                <div class="info-card-body d-flex flex-column flex-grow-1">
+                                    <a href="<?php the_permalink(); ?>" class="text-decoration-none text-dark">
+                                        <h3 class="info-card-title"><?php the_title(); ?></h3>
+                                    </a>
+                                    
+                                    <div class="info-card-meta mb-3">
+                                        <span class="info-meta-item">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/stash_data-date-solid.svg" alt="Date"> 
+                                            <?php echo get_the_date('d/m/Y'); ?>
+                                        </span>
+                                        <span class="info-meta-divider">|</span>
+                                        <span class="info-meta-item">
+                                            <img src="<?php echo get_template_directory_uri(); ?>/assets/solar_user-outline.svg" alt="Author"> 
+                                            <?php the_author(); ?>
+                                        </span>
+                                    </div>
 
-                    <!-- Card 3 -->
-                    <div class="info-card">
-                        <div class="info-card-img">
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/peoplegroup.webp" alt="Tin tức">
-                        </div>
-                        <div class="info-card-body">
-                            <h3 class="info-card-title">Những dấu hiệu của một doanh nghiệp cần được tái cấu trúc?</h3>
-                            <div class="info-card-meta">
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/stash_data-date-solid.svg" alt="Date"> 19/04/2025
-                                </span>
-                                <span class="info-meta-divider">|</span>
-                                <span class="info-meta-item">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/assets/solar_user-outline.svg" alt="Author"> admin
-                                </span>
+                                    <div class="info-card-desc text-muted mt-auto">
+                                        <?php echo wp_trim_words( get_the_excerpt(), 20, '...' ); ?>
+                                    </div>
+                                </div>
                             </div>
-                            <p class="info-card-desc">
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
-                            </p>
-                        </div>
-                    </div>
+                    <?php 
+                        endwhile; 
+                        // Reset lại query để không ảnh hưởng tới các query khác trong trang
+                        wp_reset_postdata();
+                    else : 
+                    ?>
+                        <p class="w-100 text-center py-5">Hiện chưa có bài viết nào.</p>
+                    <?php 
+                    endif; 
+                    ?>
                 </div>
             </div>
         </section>
