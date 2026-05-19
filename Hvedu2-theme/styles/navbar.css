@@ -60,6 +60,11 @@
     font-weight: 600;
 }
 
+.dropdown-menu {
+    border-radius: 10px;
+    border: 0px;
+}
+
 /* Custom dropdown arrow */
 .navbar-nav .dropdown-toggle::after {
     border: none !important;
