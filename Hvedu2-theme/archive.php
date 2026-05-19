@@ -8,13 +8,20 @@
                 <p class="info-tagline">Tin tức & Bài viết</p>
                 <h1 class="info-title">
                     <?php 
-                    if ( is_home() ) {
+                    if ( is_category() ) {
+                        single_cat_title();
+                    } elseif ( is_tag() ) {
+                        single_tag_title();
+                    } elseif ( is_author() ) {
+                        the_author();
+                    } elseif ( is_home() ) {
                         echo single_post_title( '', false );
                     } else {
-                        echo 'Blog';
+                        echo 'Tin tức cập nhật';
                     }
                     ?>
                 </h1>
+                <?php the_archive_description( '<div class="archive-description mt-3 text-muted">', '</div>' ); ?>
             </div>
 
             <div class="info-grid">
@@ -48,7 +55,7 @@
                         </div>
                     <?php endwhile; ?>
                 <?php else : ?>
-                    <p class="text-center w-100 py-5">Chưa có bài viết nào.</p>
+                    <p class="text-center w-100 py-5">Chưa có bài viết nào trong chuyên mục này.</p>
                 <?php endif; ?>
             </div>
             
