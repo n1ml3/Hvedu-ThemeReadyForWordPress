@@ -28,3 +28,43 @@ body {
     color: var(--text-color);
     background-color: var(--bg-color);
 }
+
+/*
+ * Định dạng các thẻ liên kết (link) của Chuyên mục và Thẻ (Tags) trong trang chi tiết bài viết (single.php)
+ * Lý do: WordPress mặc định render the_category() và the_tags() thành các thẻ <a> trần không có class riêng biệt.
+ * Để đảm bảo giao diện hiển thị đồng bộ với tông màu chủ đạo của website (sử dụng CSS variables) 
+ * mà không cần phải viết code PHP can thiệp chuỗi phức tạp, chúng ta sẽ định nghĩa kiểu dáng thông qua 
+ * bộ chọn phân cấp dựa trên các lớp cha (.meta-category và .single-tags).
+ */
+
+/* Thẻ liên kết Chuyên mục (Category) */
+.meta-category a {
+    color: var(--secondary-color); /* Đồng bộ với màu chủ đạo thứ hai */
+    text-decoration: none; /* Bỏ gạch chân mặc định để giao diện trông hiện đại, tinh giản hơn */
+    font-weight: 600; /* Làm nổi bật liên kết chuyên mục */
+    transition: color 0.2s ease-in-out; /* Tạo hiệu ứng chuyển màu mượt mà khi di chuột */
+}
+
+.meta-category a:hover {
+    color: #1B3933; /* Sử dụng màu xanh đậm của hệ thống (--badge-bg) để tạo tương phản tốt khi hover */
+    text-decoration: underline; /* Thêm gạch chân khi hover để tăng tính gợi ý tương tác (UX) */
+}
+
+/* Thẻ liên kết Thẻ (Tags) */
+.single-tags a {
+    display: inline-block;
+    color: #6c757d; /* Sử dụng màu xám nhẹ để phân biệt với chuyên mục */
+    text-decoration: none;
+    background-color: #f8f9fa; /* Tạo viền hộp nền nhạt bao quanh mỗi tag giống dạng badge */
+    padding: 4px 10px;
+    margin: 2px 4px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.single-tags a:hover {
+    color: var(--white);
+    background-color: var(--primary-color); /* Đổi màu nền sang tông xanh chính khi hover để tạo điểm nhấn */
+}
+
