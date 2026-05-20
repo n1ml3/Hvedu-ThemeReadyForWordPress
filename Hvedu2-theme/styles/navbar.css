@@ -61,8 +61,11 @@
 }
 
 .dropdown-menu {
-    border-radius: 10px;
     border: 1px solid var(--primary-color);
+}
+
+.dropdown-menu li:not(:last-child) {
+    border-bottom: 1px solid var(--primary-color);
 }
 
 /* Custom dropdown arrow */

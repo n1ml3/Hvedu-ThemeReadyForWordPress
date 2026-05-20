@@ -60,6 +60,14 @@
     font-weight: 600;
 }
 
+.dropdown-menu {
+    border: 1px solid var(--primary-color);
+}
+
+.dropdown-menu li:not(:last-child) {
+    border-bottom: 1px solid var(--primary-color);
+}
+
 /* Custom dropdown arrow */
 .navbar-nav .dropdown-toggle::after {
     border: none !important;
