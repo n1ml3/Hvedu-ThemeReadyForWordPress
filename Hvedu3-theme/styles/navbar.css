@@ -68,6 +68,12 @@
     border-bottom: 1px solid var(--primary-color);
 }
 
+.dropdown-menu .dropdown-item.active {
+    background-color: #52DBC0;
+    color: var(--white);
+}
+
+
 /* Custom dropdown arrow */
 .navbar-nav .dropdown-toggle::after {
     border: none !important;
