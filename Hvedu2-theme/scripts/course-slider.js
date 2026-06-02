@@ -1,39 +1,53 @@
-/**
- * course-slider.js
- * Xử lý cuộn ngang cho danh sách khoá học:
- *  - Kéo chuột (drag) để cuộn tự do trên desktop
- *  - Touch swipe hoạt động tự nhiên nhờ overflow-x: auto
- */
 (function () {
     'use strict';
 
-    var list = document.querySelector('.course-list');
+    const list = document.querySelector('.course-list');
     if (!list) return;
 
-    /* === Drag-to-scroll bằng chuột === */
-    var isDragging = false;
-    var startX = 0;
-    var scrollStart = 0;
+    let isDragging = false;
+    let hasMoved = false; // Flag kiểm tra xem có phải hành động kéo không
+    let startX = 0;
+    let scrollStart = 0;
+    let listLeftOffset = 0; // Cache offset để tối ưu hiệu năng
 
-    list.addEventListener('mousedown', function (e) {
+    list.addEventListener('mousedown', (e) => {
         isDragging = true;
-        startX = e.pageX - list.offsetLeft;
+        hasMoved = false;
+        listLeftOffset = list.offsetLeft; 
+        startX = e.pageX - listLeftOffset;
         scrollStart = list.scrollLeft;
         list.classList.add('is-dragging');
     });
 
-    // Dùng document để bắt event ngay cả khi chuột rời khỏi list
-    document.addEventListener('mousemove', function (e) {
+    document.addEventListener('mousemove', (e) => {
         if (!isDragging) return;
-        e.preventDefault();
-        var x = e.pageX - list.offsetLeft;
-        var walk = (x - startX) * 1.2; // Hệ số tốc độ kéo
+        
+        const x = e.pageX - listLeftOffset;
+        const walk = (x - startX) * 1.2;
+        
+        // Nếu dịch chuyển hơn 5px thì xác định là đang kéo (drag)
+        if (Math.abs(walk) > 5) {
+            hasMoved = true;
+        }
+        
         list.scrollLeft = scrollStart - walk;
     });
 
-    document.addEventListener('mouseup', function () {
+    // Thêm 'mouseleave' trên document để xử lý khi chuột rời khỏi cửa sổ trình duyệt
+    const stopDragging = () => {
         if (!isDragging) return;
         isDragging = false;
         list.classList.remove('is-dragging');
-    });
+    };
+
+    document.addEventListener('mouseup', stopDragging);
+    document.addEventListener('mouseleave', stopDragging);
+
+    // Chặn hành vi click vào link/phần tử con nếu người dùng đang thực hiện kéo chuột
+    list.addEventListener('click', (e) => {
+        if (hasMoved) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    }, true); // Dùng useCapture để chặn từ vòng capturing
 })();
