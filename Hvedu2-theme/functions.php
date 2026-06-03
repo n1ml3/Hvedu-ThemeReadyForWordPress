@@ -17,25 +17,27 @@ function hvedu_theme_setup() {
 add_action( 'after_setup_theme', 'hvedu_theme_setup' );
 
 function hvedu_theme_scripts() {
+    $theme_version = time(); // Dùng time() để bypass cache trong quá trình dev
+
     // Bootstrap CSS
     wp_enqueue_style( 'bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css', array(), '5.3.3' );
 
     // Custom CSS
-    wp_enqueue_style( 'hvedu-global', get_template_directory_uri() . '/styles/global.css', array(), null );
-    wp_enqueue_style( 'hvedu-navbar', get_template_directory_uri() . '/styles/navbar.css', array(), null );
-    wp_enqueue_style( 'hvedu-hero', get_template_directory_uri() . '/styles/hero.css', array(), null );
-    wp_enqueue_style( 'hvedu-stats', get_template_directory_uri() . '/styles/stats.css', array(), null );
-    wp_enqueue_style( 'hvedu-services', get_template_directory_uri() . '/styles/services.css', array(), null );
-    wp_enqueue_style( 'hvedu-course', get_template_directory_uri() . '/styles/course.css', array(), null );
-    wp_enqueue_style( 'hvedu-documents', get_template_directory_uri() . '/styles/documents.css', array(), null );
-    wp_enqueue_style( 'hvedu-expert', get_template_directory_uri() . '/styles/expert.css', array(), null );
-    wp_enqueue_style( 'hvedu-testimonials', get_template_directory_uri() . '/styles/testimonials.css', array(), null );
-    wp_enqueue_style( 'hvedu-footer', get_template_directory_uri() . '/styles/footer.css', array(), null );
-    wp_enqueue_style( 'hvedu-contact', get_template_directory_uri() . '/styles/contact.css', array(), null );
-    wp_enqueue_style( 'hvedu-information', get_template_directory_uri() . '/styles/information.css', array(), null );
-    wp_enqueue_style( 'hvedu-introduce', get_template_directory_uri() . '/styles/introduce.css', array(), null );
-    wp_enqueue_style( 'hvedu-about-hero', get_template_directory_uri() . '/styles/about-hero.css', array(), null );
-    wp_enqueue_style( 'hvedu-style', get_stylesheet_uri(), array(), null ); // Load style.css của theme
+    wp_enqueue_style( 'hvedu-global', get_template_directory_uri() . '/styles/global.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-navbar', get_template_directory_uri() . '/styles/navbar.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-hero', get_template_directory_uri() . '/styles/hero.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-stats', get_template_directory_uri() . '/styles/stats.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-services', get_template_directory_uri() . '/styles/services.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-course', get_template_directory_uri() . '/styles/course.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-documents', get_template_directory_uri() . '/styles/documents.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-expert', get_template_directory_uri() . '/styles/expert.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-testimonials', get_template_directory_uri() . '/styles/testimonials.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-footer', get_template_directory_uri() . '/styles/footer.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-contact', get_template_directory_uri() . '/styles/contact.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-information', get_template_directory_uri() . '/styles/information.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-introduce', get_template_directory_uri() . '/styles/introduce.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-about-hero', get_template_directory_uri() . '/styles/about-hero.css', array(), $theme_version );
+    wp_enqueue_style( 'hvedu-style', get_stylesheet_uri(), array(), $theme_version ); // Load style.css của theme
 
     // jQuery
     wp_deregister_script('jquery');
@@ -45,7 +47,6 @@ function hvedu_theme_scripts() {
     wp_enqueue_script( 'bootstrap-bundle', 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js', array('jquery'), '5.3.3', true );
 
     // Custom JS
-    $theme_version = time(); // Dùng time() để bypass cache trong quá trình dev
     wp_enqueue_script( 'hvedu-navbar-js', get_template_directory_uri() . '/scripts/navbar.js', array('jquery'), $theme_version, true );
     wp_enqueue_script( 'hvedu-course-slider', get_template_directory_uri() . '/scripts/course-slider.js', array('jquery'), $theme_version, true );
 }
