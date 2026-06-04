@@ -157,10 +157,9 @@
 
 .course-list.is-dragging {
   cursor: grabbing;
-  scroll-snap-type: none; /* Tắt snap khi đang kéo để mượt hơn */
+  scroll-snap-type: none;
 }
 
-/* Không cho hover effect khi đang kéo — tránh rung */
 .course-list.is-dragging .course-card {
   pointer-events: none;
 }
