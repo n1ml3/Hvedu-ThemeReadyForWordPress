@@ -243,10 +243,24 @@
     }
 
     .services-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none; 
+        -ms-overflow-style: none; /* IE / Edge */
+        padding: 12px 4px; 
+    }
+
+    .services-grid::-webkit-scrollbar {
+        display: none; /* Ẩn scrollbar trên Chrome/Safari để tối ưu thẩm mỹ */
     }
 
     .service-card {
+        /* Sử dụng flex-basis 85% để lộ một phần của card tiếp theo, tạo gợi ý trực quan cho người dùng thực hiện vuốt ngang */
+        flex: 0 0 85%;
+        min-width: 270px;
+        scroll-snap-align: start;
         padding: 20px 16px;
     }
 }
