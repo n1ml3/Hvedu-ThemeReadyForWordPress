@@ -61,7 +61,9 @@
 }
 
 .dropdown-menu {
+    border-radius: 0px;
     border: 1px solid var(--primary-color);
+    padding: 0px;
 }
 
 .dropdown-menu li:not(:last-child) {
