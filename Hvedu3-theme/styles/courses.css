@@ -262,9 +262,46 @@
 /* ==============================================
    RESPONSIVE
    ============================================== */
-@media (max-width: 1100px) {
+
+@media (max-width: 1024px) {
+    /* Chuyển grid thành flex hàng ngang để cho phép cuộn ngang (horizontal scroll) */
     .courses-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        padding: 10px 10px 25px;
+        margin: -10px -10px -25px;
+        /* Tinh chỉnh thanh cuộn trên các trình duyệt hiện đại */
+        scrollbar-width: thin;
+        scrollbar-color: #39b8ad #f2f4f7;
+    }
+
+    /* Tạo kiểu cho thanh cuộn (scrollbar) tinh tế, hiện đại hơn trên Chrome/Safari/Edge */
+    .courses-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .courses-grid::-webkit-scrollbar-track {
+        background: #f2f4f7;
+        border-radius: 10px;
+    }
+
+    .courses-grid::-webkit-scrollbar-thumb {
+        background: #39b8ad;
+        border-radius: 10px;
+    }
+
+    .courses-grid::-webkit-scrollbar-thumb:hover {
+        background: #2da099;
+    }
+
+    /* Thiết lập độ rộng của thẻ khóa học trên màn hình tablet để giữ tỷ lệ thumbnail bên trái và body bên phải */
+    .course-card {
+        flex: 0 0 540px;
+        scroll-snap-align: start;
     }
 }
 
@@ -278,7 +315,11 @@
         font-size: 28px;
     }
 
+    /* Trên màn hình di động, đổi card thành layout dọc để vừa vặn chiều rộng và dễ đọc thông tin */
     .course-card {
+        flex: 0 0 85%;
+        max-width: 320px;
+        min-width: 280px;
         flex-direction: column;
         min-height: auto;
     }
@@ -297,7 +338,7 @@
     .course-instructor {
         flex-direction: column;
     }
-    .course-rating{
+    .course-rating {
         align-items: center !important;
     }
 }
