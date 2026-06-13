@@ -136,3 +136,132 @@ function hvedu_add_submenu_class($classes, $args, $depth) {
     return $classes;
 }
 add_filter('nav_menu_submenu_css_class', 'hvedu_add_submenu_class', 10, 3);
+
+// Include Hvedu Theme Helpers
+require get_template_directory() . '/inc/post-types.php';
+require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/contact-handler.php';
+
+/**
+ * Automatically populate dummy data for CPTs if they are empty, ensuring the theme displays nicely out of the box.
+ */
+function hvedu_populate_dummy_data() {
+    if ( get_option( 'hvedu_dummy_data_populated' ) ) {
+        return;
+    }
+
+    // 1. Services Dummy Data
+    $services_exist = get_posts( array( 'post_type' => 'hvedu_service', 'posts_per_page' => 1 ) );
+    if ( empty( $services_exist ) ) {
+        $services = array(
+            array( 'title' => 'Chiến lược kinh doanh', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+            array( 'title' => 'Quản lý dự án', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+            array( 'title' => 'Quản trị nhân lực', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+            array( 'title' => 'Tư vấn Chuyển đổi số', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+            array( 'title' => 'Huấn luyện Lãnh đạo', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+            array( 'title' => 'Quản trị Tài chính', 'desc' => 'Lorem ipsum dolor amet ex consectetur adipiscing elit sed eiusmod' ),
+        );
+
+        foreach ( $services as $service ) {
+            wp_insert_post( array(
+                'post_type'    => 'hvedu_service',
+                'post_title'   => $service['title'],
+                'post_content' => $service['desc'],
+                'post_status'  => 'publish',
+            ) );
+        }
+    }
+
+    // 2. Courses Dummy Data
+    $courses_exist = get_posts( array( 'post_type' => 'hvedu_course', 'posts_per_page' => 1 ) );
+    if ( empty( $courses_exist ) ) {
+        for ( $i = 1; $i <= 6; $i++ ) {
+            $titles = array(
+                1 => 'Khóa huấn luyện "Lập Kế hoạch Kinh doanh Thực chiến hàng năm"',
+                2 => 'Khóa học "Xây dựng Hệ thống Vận hành Doanh nghiệp Tự động"',
+                3 => 'Chương trình "Coaching Tăng trưởng Doanh thu Đột phá 10x"',
+                4 => 'Khóa đào tạo "Quản trị Nhân sự dành cho Quản lý Cấp trung"',
+                5 => 'Khóa học "Chiến lược Marketing Thực chiến Kỷ nguyên Số"',
+                6 => 'Khóa huấn luyện "Tối ưu hóa Chi phí và Quản trị Tài chính"'
+            );
+            $title = $titles[$i];
+            
+            $post_id = wp_insert_post( array(
+                'post_type'    => 'hvedu_course',
+                'post_title'   => $title,
+                'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.',
+                'post_status'  => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_course_old_price', '3.390.000 đ' );
+                update_post_meta( $post_id, '_course_price', '2.000.000đ' );
+                update_post_meta( $post_id, '_course_lessons', '12' );
+                update_post_meta( $post_id, '_course_method', 'Học qua zoom' );
+            }
+        }
+    }
+
+    // 3. Documents Dummy Data
+    $docs_exist = get_posts( array( 'post_type' => 'hvedu_document', 'posts_per_page' => 1 ) );
+    if ( empty( $docs_exist ) ) {
+        $docs = array(
+            'Tài liệu hệ thống BSC',
+            'Cẩm nang Vận hành Doanh nghiệp',
+            'Bộ biểu mẫu Quản trị Nhân sự'
+        );
+
+        foreach ( $docs as $doc ) {
+            $post_id = wp_insert_post( array(
+                'post_type'    => 'hvedu_document',
+                'post_title'   => $doc,
+                'post_content' => 'Lorem ipsum dolor amet ex consecturs adipiscing elit sed eiusmod',
+                'post_status'  => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_document_price', 'Giá: 200.000đ' );
+            }
+        }
+    }
+
+    // 4. Testimonials Dummy Data
+    $testimonials_exist = get_posts( array( 'post_type' => 'hvedu_testimonial', 'posts_per_page' => 1 ) );
+    if ( empty( $testimonials_exist ) ) {
+        $testimonials = array(
+            array(
+                'name'    => 'Trần Minh Hiếu',
+                'content' => 'Chương trình Huấn luyện chuyên sâu và đồng hành do HVG tổ chức cho công ty chúng tôi vô cùng sát thực và hữu ích. Các Giám Đốc, quản lý và bản thân tôi đã nhận được rất nhiều kiến thức, giá trị thực tiễn và phân tích chuyên sâu.',
+                'role'    => 'Giám đốc công ty FPA',
+                'rating'  => 5,
+                'logo'    => 'logo-02 1.svg',
+            ),
+            array(
+                'name'    => 'Nguyễn Minh Chíe',
+                'content' => 'Chương trình Huấn luyện chuyên sâu và đồng hành do HVG tổ chức cho công ty chúng tôi vô cùng sát thực và hữu ích. Các Giám Đốc, quản lý và bản thân tôi đã nhận được rất nhiều kiến thức, giá trị thực tiễn và phân tích chuyên sâu.',
+                'role'    => 'Giám đốc công ty E-learning',
+                'rating'  => 5,
+                'logo'    => 'logo-01 1.svg',
+            )
+        );
+
+        foreach ( $testimonials as $item ) {
+            $post_id = wp_insert_post( array(
+                'post_type'    => 'hvedu_testimonial',
+                'post_title'   => $item['name'],
+                'post_content' => $item['content'],
+                'post_status'  => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_testimonial_role', $item['role'] );
+                update_post_meta( $post_id, '_testimonial_rating', $item['rating'] );
+                update_post_meta( $post_id, '_testimonial_logo', $item['logo'] );
+            }
+        }
+    }
+
+    update_option( 'hvedu_dummy_data_populated', 1 );
+}
+add_action( 'init', 'hvedu_populate_dummy_data', 99 );
+

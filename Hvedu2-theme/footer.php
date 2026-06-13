@@ -21,21 +21,21 @@
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/location.svg" alt="Địa chỉ" class="info-icon">
                         <div>
                             <strong>Địa chỉ:</strong>
-                            <p info-text>Số 33, Trung Kính, Cầu Giấy, Hà Nội</p>
+                            <p info-text><?php echo esc_html( get_theme_mod( 'contact_address', '33 Trung Kính, Cầu Giấy, Hà Nội' ) ); ?></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/phone.svg" alt="Hotline" class="info-icon">
                         <div>
                             <strong>Hotline:</strong>
-                            <p info-text>(+84)123456789</p>
+                            <p info-text><?php echo esc_html( get_theme_mod( 'contact_phone', 'Mobile: (+84)96311800' ) ); ?></p>
                         </div>
                     </div>
                     <div class="info-item">
                         <img src="<?php echo get_template_directory_uri(); ?>/assets/mail.svg" alt="Email" class="info-icon">
                         <div>
                             <strong>Email:</strong>
-                            <p info-text>hoangvugroup@gmail.com</p>
+                            <p info-text><?php echo esc_html( get_theme_mod( 'contact_email', 'demo1@gmail.com' ) ); ?></p>
                         </div>
                     </div>
                 </div>
