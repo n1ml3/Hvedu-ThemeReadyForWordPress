@@ -113,3 +113,132 @@ function hvedu_add_submenu_class($classes, $args, $depth) {
     return $classes;
 }
 add_filter('nav_menu_submenu_css_class', 'hvedu_add_submenu_class', 10, 3);
+
+// Include Hvedu3 Theme Helpers
+require get_template_directory() . '/inc/post-types.php';
+require get_template_directory() . '/inc/customizer.php';
+require get_template_directory() . '/inc/contact-handler.php';
+
+/**
+ * Automatically populate dummy data for CPTs if they are empty for Theme 3.
+ */
+function hvedu3_populate_dummy_data() {
+    if ( get_option( 'hvedu3_dummy_data_populated' ) ) {
+        return;
+    }
+
+    // 1. Categories Dummy Data
+    $cats_exist = get_posts( array( 'post_type' => 'hvedu3_category', 'posts_per_page' => 1 ) );
+    if ( empty( $cats_exist ) ) {
+        $categories = array(
+            array( 'title' => 'UI/UX Design Service', 'icon' => 'about-feature-1 1.svg', 'link' => '#' ),
+            array( 'title' => 'Digital Marketing', 'icon' => 'feature-3 1.svg', 'link' => '#' ),
+            array( 'title' => 'Software Developer', 'icon' => 'feature-5 1.svg', 'link' => '#' ),
+            array( 'title' => 'Product Management', 'icon' => 'feature-3 1.svg', 'link' => '#' ),
+            array( 'title' => 'Data Analysis', 'icon' => 'feature-3 1.svg', 'link' => '#' ),
+        );
+
+        foreach ( $categories as $cat ) {
+            $post_id = wp_insert_post( array(
+                'post_type'   => 'hvedu3_category',
+                'post_title'  => $cat['title'],
+                'post_status' => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_category_icon', $cat['icon'] );
+                update_post_meta( $post_id, '_category_link', $cat['link'] );
+            }
+        }
+    }
+
+    // 2. Courses Dummy Data
+    $courses_exist = get_posts( array( 'post_type' => 'hvedu3_course', 'posts_per_page' => 1 ) );
+    if ( empty( $courses_exist ) ) {
+        for ( $i = 1; $i <= 4; $i++ ) {
+            $titles = array(
+                1 => 'Khoá học WebFlow cho người bắt đầu',
+                2 => 'Lập trình React Native nâng cao từ số 0',
+                3 => 'Thiết kế đồ họa chuyên nghiệp với Figma',
+                4 => 'Marketing Online thực chiến tăng doanh số'
+            );
+            $badges = array(
+                1 => 'WebFlow Design',
+                2 => 'Mobile Dev',
+                3 => 'UI/UX Design',
+                4 => 'Digital Marketing'
+            );
+            
+            $post_id = wp_insert_post( array(
+                'post_type'    => 'hvedu3_course',
+                'post_title'   => $titles[$i],
+                'post_content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctux nec ullamcorper mattis.',
+                'post_status'  => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_course_badge', $badges[$i] );
+                update_post_meta( $post_id, '_course_lessons', '12' );
+                update_post_meta( $post_id, '_course_method', 'Học qua zoom' );
+                update_post_meta( $post_id, '_course_instructor_name', 'Trần Văn Tú' );
+                update_post_meta( $post_id, '_course_instructor_role', 'WebFlow Design' );
+                update_post_meta( $post_id, '_course_instructor_avatar', 'Ellipse 2.webp' );
+                update_post_meta( $post_id, '_course_rating', '4.5' );
+                update_post_meta( $post_id, '_course_price', '$99.00' );
+            }
+        }
+    }
+
+    // 3. FAQs Dummy Data
+    $faqs_exist = get_posts( array( 'post_type' => 'hvedu3_faq', 'posts_per_page' => 1 ) );
+    if ( empty( $faqs_exist ) ) {
+        $faqs = array(
+            array(
+                'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
+                'a' => 'Trung tâm có chương trình dạy từ 3- mọi độ tuổi với các chương trình được thiết kế phù hợp theo từng giai đoạn phát triển, giúp trẻ tiếp thu kiến thức và kỹ năng một cách tự nhiên nhất.'
+            ),
+            array(
+                'q' => 'Chương trình đào tạo HVG?',
+                'a' => 'Thông tin chi tiết về chương trình đào tạo sẽ được cập nhật sớm nhất.'
+            ),
+            array(
+                'q' => 'Các quyền lợi khi học các khoá học tại HVG?',
+                'a' => 'Thông tin chi tiết về quyền lợi học viên sẽ được cập nhật sớm nhất.'
+            ),
+            array(
+                'q' => 'Đăng ký như thế nào?',
+                'a' => 'Bạn có thể đăng ký trực tuyến qua website hoặc liên hệ hotline để được hướng dẫn.'
+            )
+        );
+
+        foreach ( $faqs as $faq ) {
+            wp_insert_post( array(
+                'post_type'    => 'hvedu3_faq',
+                'post_title'   => $faq['q'],
+                'post_content' => $faq['a'],
+                'post_status'  => 'publish',
+            ) );
+        }
+    }
+
+    // 4. Testimonials Dummy Data
+    $testimonials_exist = get_posts( array( 'post_type' => 'hvedu3_testimonial', 'posts_per_page' => 1 ) );
+    if ( empty( $testimonials_exist ) ) {
+        for ( $i = 1; $i <= 3; $i++ ) {
+            $post_id = wp_insert_post( array(
+                'post_type'    => 'hvedu3_testimonial',
+                'post_title'   => 'Trần Đức Anh',
+                'post_content' => '“Sau 3 tháng học Giáo dục sớm tại trung tâm, con tôi đã có sự tiến bộ rõ rệt. Bé chủ động khám phá, học chữ và số một cách tự nhiên. Giáo trình rất khoa học và thú vị. Nhờ đó, mình đạt điểm cao hơn hẳn so với trước đây!"',
+                'post_status'  => 'publish',
+            ) );
+
+            if ( $post_id ) {
+                update_post_meta( $post_id, '_testimonial_role', 'Học viên khoá UI/UX' );
+            }
+        }
+    }
+
+    update_option( 'hvedu3_dummy_data_populated', 1 );
+}
+add_action( 'init', 'hvedu3_populate_dummy_data', 99 );
+
