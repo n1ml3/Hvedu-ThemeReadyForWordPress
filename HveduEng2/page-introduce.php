@@ -118,7 +118,54 @@ get_header();
 		</div>
 	</section>
 
-	<!-- Teachers Section -->
+	<!-- Teachers Section (CPT hvedu_teacher) -->
+	<?php
+	$teachers_query = new WP_Query( array(
+		'post_type'      => 'hvedu_teacher',
+		'posts_per_page' => 3,
+		'post_status'    => 'publish',
+	) );
+
+	$teachers_list = array();
+	if ( $teachers_query->have_posts() ) {
+		while ( $teachers_query->have_posts() ) {
+			$teachers_query->the_post();
+			$t_id = get_the_ID();
+			$avatar = get_the_post_thumbnail_url( $t_id, 'medium' );
+			if ( empty( $avatar ) ) {
+				$avatar = get_template_directory_uri() . '/assets/teacher.webp';
+			}
+			$role  = get_post_meta( $t_id, '_teacher_role', true );
+			$meta1 = get_post_meta( $t_id, '_teacher_meta1', true );
+			$meta2 = get_post_meta( $t_id, '_teacher_meta2', true );
+			$meta3 = get_post_meta( $t_id, '_teacher_meta3', true );
+
+			$teachers_list[] = array(
+				'name'   => get_the_title(),
+				'avatar' => $avatar,
+				'role'   => $role ? $role : 'Giảng viên',
+				'meta1'  => $meta1 ? $meta1 : 'Overall : 8.5 Ielts',
+				'meta2'  => $meta2 ? $meta2 : 'Tốt nghiệp loại giỏi ĐH Sư phạm',
+				'meta3'  => $meta3 ? $meta3 : 'Kinh nghiệm 7 năm giảng dạy',
+			);
+		}
+		wp_reset_postdata();
+	}
+
+	// Fallback dynamic defaults if no teachers created yet
+	if ( empty( $teachers_list ) ) {
+		for ( $i = 1; $i <= 3; $i++ ) {
+			$teachers_list[] = array(
+				'name'   => 'Phạm Phương Dung',
+				'avatar' => get_template_directory_uri() . '/assets/teacher.webp',
+				'role'   => 'Giảng viên',
+				'meta1'  => 'Overall : 8.5 Ielts',
+				'meta2'  => 'Tốt nghiệp loại giỏi ĐH Sư phạm',
+				'meta3'  => 'Kinh nghiệm 7 năm giảng dạy',
+			);
+		}
+	}
+	?>
 	<section class="teachers-section" id="teachers-section">
 		<div class="teachers-container">
 			<div class="teachers-header">
@@ -127,64 +174,75 @@ get_header();
 			</div>
 
 			<div class="teachers-grid">
-				<!-- Teacher 1 -->
-				<div class="teacher-card">
-					<div class="teacher-avatar-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/teacher.webp" alt="Giảng viên Phạm Phương Dung" class="teacher-avatar">
+				<?php foreach ( $teachers_list as $teacher ) : ?>
+					<div class="teacher-card">
+						<div class="teacher-avatar-wrap">
+							<img src="<?php echo esc_url( $teacher['avatar'] ); ?>" alt="Giảng viên <?php echo esc_attr( $teacher['name'] ); ?>" class="teacher-avatar" width="279" height="292" loading="lazy">
+						</div>
+						<h3 class="teacher-role"><?php echo esc_html( $teacher['role'] ); ?></h3>
+						<h4 class="teacher-name"><?php echo esc_html( $teacher['name'] ); ?></h4>
+						<div class="teacher-details">
+							<p class="teacher-detail-item"><?php echo esc_html( $teacher['meta1'] ); ?></p>
+							<p class="teacher-detail-item"><?php echo esc_html( $teacher['meta2'] ); ?></p>
+							<p class="teacher-detail-item"><?php echo esc_html( $teacher['meta3'] ); ?></p>
+						</div>
+						<a href="#" class="btn-teacher-more">
+							Tìm hiểu thêm
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/arrow-right.svg" alt="" width="14" height="14" loading="lazy">
+						</a>
 					</div>
-					<h3 class="teacher-role">Giảng viên</h3>
-					<h4 class="teacher-name">Phạm Phương Dung</h4>
-					<div class="teacher-details">
-						<p class="teacher-detail-item">Overall : 8.5 Ielts</p>
-						<p class="teacher-detail-item">Tốt nghiệp loại giỏi ĐH Sư phạm</p>
-						<p class="teacher-detail-item">Kinh nghiệm 7 năm giảng dạy</p>
-					</div>
-					<a href="#" class="btn-teacher-more">
-						Tìm hiểu thêm
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/arrow-right.svg" alt="Arrow">
-					</a>
-				</div>
-
-				<!-- Teacher 2 -->
-				<div class="teacher-card">
-					<div class="teacher-avatar-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/teacher.webp" alt="Giảng viên Phạm Phương Dung" class="teacher-avatar">
-					</div>
-					<h3 class="teacher-role">Giảng viên</h3>
-					<h4 class="teacher-name">Phạm Phương Dung</h4>
-					<div class="teacher-details">
-						<p class="teacher-detail-item">Overall : 8.5 Ielts</p>
-						<p class="teacher-detail-item">Tốt nghiệp loại giỏi ĐH Sư phạm</p>
-						<p class="teacher-detail-item">Kinh nghiệm 7 năm giảng dạy</p>
-					</div>
-					<a href="#" class="btn-teacher-more">
-						Tìm hiểu thêm
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/arrow-right.svg" alt="Arrow">
-					</a>
-				</div>
-
-				<!-- Teacher 3 -->
-				<div class="teacher-card">
-					<div class="teacher-avatar-wrap">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/teacher.webp" alt="Giảng viên Phạm Phương Dung" class="teacher-avatar">
-					</div>
-					<h3 class="teacher-role">Giảng viên</h3>
-					<h4 class="teacher-name">Phạm Phương Dung</h4>
-					<div class="teacher-details">
-						<p class="teacher-detail-item">Overall : 8.5 Ielts</p>
-						<p class="teacher-detail-item">Tốt nghiệp loại giỏi ĐH Sư phạm</p>
-						<p class="teacher-detail-item">Kinh nghiệm 7 năm giảng dạy</p>
-					</div>
-					<a href="#" class="btn-teacher-more">
-						Tìm hiểu thêm
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/arrow-right.svg" alt="Arrow">
-					</a>
-				</div>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>
 
-	<!-- FAQ Section -->
+	<!-- FAQ Section (CPT hvedu_faq) -->
+	<?php
+	$faq_visual = get_theme_mod( 'faq_visual_image' );
+	if ( empty( $faq_visual ) ) {
+		$faq_visual = get_template_directory_uri() . '/assets/qna-banner.webp';
+	}
+
+	$faqs_query = new WP_Query( array(
+		'post_type'      => 'hvedu_faq',
+		'posts_per_page' => 10,
+		'post_status'    => 'publish',
+	) );
+
+	$faqs_list = array();
+	if ( $faqs_query->have_posts() ) {
+		while ( $faqs_query->have_posts() ) {
+			$faqs_query->the_post();
+			$faqs_list[] = array(
+				'q' => get_the_title(),
+				'a' => get_the_content(),
+			);
+		}
+		wp_reset_postdata();
+	}
+
+	// Fallback dynamic defaults if no FAQs created yet
+	if ( empty( $faqs_list ) ) {
+		$faqs_list = array(
+			array(
+				'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
+				'a' => 'Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.',
+			),
+			array(
+				'q' => 'Chương trình đào tạo IELTS tại HVG',
+				'a' => 'HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.',
+			),
+			array(
+				'q' => 'Học phí tại IELTS tại HVG như thế nào?',
+				'a' => 'Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.',
+			),
+			array(
+				'q' => 'Thi thử IELTS như thế nào?',
+				'a' => 'Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.',
+			),
+		);
+	}
+	?>
 	<section class="faq-section" id="faq-section">
 		<div class="faq-container">
 			<div class="faq-content">
@@ -192,70 +250,24 @@ get_header();
 				<p class="faq-subtitle">Tìm hiểu về chất lượng học tập tại HVG</p>
 
 				<div class="faq-accordion">
-					<!-- Question 1 -->
-					<div class="faq-item">
-						<div class="faq-header">
-							<h3 class="faq-question">Độ tuổi nào có thể tham gia chương trình học tại trung tâm?</h3>
-							<div class="faq-icon">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/plus-fill.svg" alt="Toggle Icon">
+					<?php foreach ( $faqs_list as $index => $faq ) : ?>
+						<div class="faq-item">
+							<div class="faq-header">
+								<h3 class="faq-question"><?php echo esc_html( $faq['q'] ); ?></h3>
+								<div class="faq-icon">
+									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/plus-fill.svg" alt="Toggle Icon" width="36" height="36" loading="lazy">
+								</div>
+							</div>
+							<div class="faq-answer">
+								<p class="faq-answer-inner"><?php echo wp_kses_post( $faq['a'] ); ?></p>
 							</div>
 						</div>
-						<div class="faq-answer">
-							<p class="faq-answer-inner">
-								Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.
-							</p>
-						</div>
-					</div>
-
-					<!-- Question 2 -->
-					<div class="faq-item">
-						<div class="faq-header">
-							<h3 class="faq-question">Chương trình đào tạo IELTS tại HVG</h3>
-							<div class="faq-icon">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/plus-fill.svg" alt="Toggle Icon">
-							</div>
-						</div>
-						<div class="faq-answer">
-							<p class="faq-answer-inner">
-								HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.
-							</p>
-						</div>
-					</div>
-
-					<!-- Question 3 -->
-					<div class="faq-item">
-						<div class="faq-header">
-							<h3 class="faq-question">Học phí tại IELTS tại HVG như thế nào?</h3>
-							<div class="faq-icon">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/plus-fill.svg" alt="Toggle Icon">
-							</div>
-						</div>
-						<div class="faq-answer">
-							<p class="faq-answer-inner">
-								Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.
-							</p>
-						</div>
-					</div>
-
-					<!-- Question 4 -->
-					<div class="faq-item">
-						<div class="faq-header">
-							<h3 class="faq-question">Thi thử IELTS như thế nào?</h3>
-							<div class="faq-icon">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/plus-fill.svg" alt="Toggle Icon">
-							</div>
-						</div>
-						<div class="faq-answer">
-							<p class="faq-answer-inner">
-								Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.
-							</p>
-						</div>
-					</div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 
 			<div class="faq-visual">
-				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/qna-banner.webp" alt="Classroom at HVG" class="faq-classroom-img">
+				<img src="<?php echo esc_url( $faq_visual ); ?>" alt="Classroom at HVG" class="faq-classroom-img" width="573" height="382" loading="lazy">
 			</div>
 		</div>
 	</section>

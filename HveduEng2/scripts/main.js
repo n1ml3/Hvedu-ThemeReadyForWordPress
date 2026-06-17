@@ -64,6 +64,33 @@
     if (newSrc && newSrc.includes("-white.svg")) {
       newIcon.attr("src", newSrc.replace("puzzle-white.svg", "puzzle.svg"));
     }
+
+    // Cập nhật động nội dung của ô thông tin khóa học (Course Card) tương ứng
+    const title = newItem.attr("data-title");
+    const entry = newItem.attr("data-entry");
+    const exit = newItem.attr("data-exit");
+    const feat1 = newItem.attr("data-feat1");
+    const feat2 = newItem.attr("data-feat2");
+    const feat3 = newItem.attr("data-feat3");
+    const teacher = newItem.attr("data-teacher");
+    const score = newItem.attr("data-score");
+    const img = newItem.attr("data-img");
+
+    const section = $("#courses-section");
+    section.find(".course-title").text(title);
+    section.find(".course-level-item:eq(0) .course-level-text").text(entry);
+    section.find(".course-level-item:eq(1) .course-level-text").text(exit);
+    
+    const features = section.find(".course-feature-item");
+    if (features.length >= 3) {
+      $(features[0]).find(".course-feature-text").text(feat1);
+      $(features[1]).find(".course-feature-text").text(feat2);
+      $(features[2]).find(".course-feature-text").text(feat3);
+    }
+    
+    section.find(".course-teacher-name").text(teacher);
+    section.find(".course-score-number").text(score);
+    section.find(".course-teacher-img").attr("src", img);
   });
 
 })(jQuery);

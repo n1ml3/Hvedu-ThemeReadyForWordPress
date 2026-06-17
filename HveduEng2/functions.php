@@ -9,6 +9,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+// Register Custom Post Types & Meta Boxes
+require get_template_directory() . '/inc/custom-post-types.php';
+
+// Register Theme Customizer Options
+require get_template_directory() . '/inc/customizer.php';
+
 function hvedueng2_setup() {
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );

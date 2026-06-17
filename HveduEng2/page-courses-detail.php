@@ -123,9 +123,20 @@ get_header();
 </section>
 
 <!-- Consultation Section -->
+<?php
+$uk_flag = get_theme_mod( 'consultation_flag' );
+if ( empty( $uk_flag ) ) {
+	$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
+}
+
+$student_pointer = get_theme_mod( 'consultation_student' );
+if ( empty( $student_pointer ) ) {
+	$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
+}
+?>
 <section class="consultation-section" id="consultation-section">
 	<div class="consultation-uk-flag">
-		<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/uk-flag.svg" alt="UK Flag Decor">
+		<img src="<?php echo esc_url( $uk_flag ); ?>" alt="UK Flag Decor" width="117" height="67" loading="lazy">
 	</div>
 
 	<div class="consultation-decor-circle"></div>
@@ -170,7 +181,7 @@ get_header();
 		</div>
 
 		<div class="consultation-visual">
-			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/pointer.webp" alt="Student pointing to form" class="consultation-student-img">
+			<img src="<?php echo esc_url( $student_pointer ); ?>" alt="Student pointing to form" class="consultation-student-img" width="471" height="539" loading="lazy">
 		</div>
 	</div>
 </section>

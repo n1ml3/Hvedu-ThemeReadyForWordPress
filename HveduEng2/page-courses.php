@@ -30,234 +30,98 @@ get_header();
 
 <main>
 	<!-- Section: Danh sách khóa học -->
+	<?php
+	$courses_query = new WP_Query( array(
+		'post_type'      => 'hvedu_course',
+		'posts_per_page' => -1, // Show all courses
+		'post_status'    => 'publish',
+		'orderby'        => 'date',
+		'order'          => 'ASC',
+	) );
+
+	$courses_list = array();
+	if ( $courses_query->have_posts() ) {
+		while ( $courses_query->have_posts() ) {
+			$courses_query->the_post();
+			$c_id = get_the_ID();
+			
+			$duration = get_post_meta( $c_id, '_course_duration', true );
+			$lessons  = get_post_meta( $c_id, '_course_lessons', true );
+			$label    = get_post_meta( $c_id, '_course_label', true );
+
+			$courses_list[] = array(
+				'title'    => get_the_title(),
+				'desc'     => get_the_content(),
+				'duration' => $duration ? $duration : '1.5 tháng',
+				'lessons'  => $lessons ? $lessons : '6 lesson',
+				'label'    => $label ? $label : 'Mất gốc',
+			);
+		}
+		wp_reset_postdata();
+	}
+
+	// Fallback dynamic defaults if no courses created yet
+	if ( empty( $courses_list ) ) {
+		for ( $i = 1; $i <= 6; $i++ ) {
+			$courses_list[] = array(
+				'title'    => 'Khoá Prime( 0-2.0)',
+				'desc'     => 'Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.',
+				'duration' => '1.5 tháng',
+				'lessons'  => '6 lesson',
+				'label'    => 'Mất gốc',
+			);
+		}
+	}
+	?>
 	<section class="courses-grid-section">
 		<div class="container">
 			<div class="courses-cards-grid">
-				
-				<!-- Khóa học 1 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-blue">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blue-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
+				<?php foreach ( $courses_list as $index => $course ) : 
+					$is_even = ($index % 2 === 0);
+					$banner_class = $is_even ? 'banner-blue' : 'banner-orange';
+					$banner_img = $is_even ? 'blue-banner.svg' : 'yellow-banner.svg';
+					?>
+					<!-- Khóa học Card -->
+					<div class="course-item-card">
+						<div class="course-item-card-banner <?php echo esc_attr( $banner_class ); ?>">
+							<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() . '/assets/' . $banner_img ); ?>" alt="<?php echo esc_attr( $course['title'] ); ?> Banner" loading="lazy">
 						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 2 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-orange">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/yellow-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
+						<div class="course-item-card-body">
+							<h3 class="course-item-card-title"><?php echo esc_html( $course['title'] ); ?></h3>
+							<div class="course-item-card-meta">
+								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time" loading="lazy">
+								<span><?php echo esc_html( $course['duration'] ); ?></span>
+							</div>
+							<p class="course-item-card-desc"><?php echo esc_html( $course['desc'] ); ?></p>
+							<div class="course-item-card-footer">
+								<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag"><?php echo esc_html( $course['label'] ); ?></a>
+								<span class="course-item-card-lessons">
+									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc" loading="lazy">
+									<span><?php echo esc_html( $course['lessons'] ); ?></span>
+								</span>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<!-- Khóa học 3 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-blue">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blue-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 4 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-orange">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/yellow-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 5 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-blue">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blue-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 6 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-orange">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/yellow-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 7 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-blue">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blue-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 8 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-orange">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/yellow-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
-				<!-- Khóa học 9 -->
-				<div class="course-item-card">
-					<div class="course-item-card-banner banner-blue">
-						<img class="course-item-card-banner-img" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blue-banner.svg" alt="Khóa học Prime Banner">
-					</div>
-					<div class="course-item-card-body">
-						<h3 class="course-item-card-title">Khoá Prime( 0-2.0)</h3>
-						<div class="course-item-card-meta">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/time-line.svg" alt="Time">
-							<span>1.5 tháng</span>
-						</div>
-						<p class="course-item-card-desc">
-							Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.
-						</p>
-						<div class="course-item-card-footer">
-							<a href="<?php echo esc_url( home_url( '/chi-tiet-khoa-hoc' ) ); ?>" class="course-item-card-tag">Mất gốc</a>
-							<span class="course-item-card-lessons">
-								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/document.svg" alt="Doc">
-								<span>6 lesson</span>
-							</span>
-						</div>
-					</div>
-				</div>
-
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>
 
 	<!-- Consultation Section -->
+	<?php
+	$uk_flag = get_theme_mod( 'consultation_flag' );
+	if ( empty( $uk_flag ) ) {
+		$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
+	}
+
+	$student_pointer = get_theme_mod( 'consultation_student' );
+	if ( empty( $student_pointer ) ) {
+		$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
+	}
+	?>
 	<section class="consultation-section" id="consultation-section">
 		<div class="consultation-uk-flag">
-			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/uk-flag.svg" alt="UK Flag Decor">
+			<img src="<?php echo esc_url( $uk_flag ); ?>" alt="UK Flag Decor" width="117" height="67" loading="lazy">
 		</div>
 
 		<div class="consultation-decor-circle"></div>
@@ -302,7 +166,7 @@ get_header();
 			</div>
 
 			<div class="consultation-visual">
-				<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/pointer.webp" alt="Student pointing to form" class="consultation-student-img">
+				<img src="<?php echo esc_url( $student_pointer ); ?>" alt="Student pointing to form" class="consultation-student-img" width="471" height="539" loading="lazy">
 			</div>
 		</div>
 	</section>
