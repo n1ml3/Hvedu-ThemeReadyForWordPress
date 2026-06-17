@@ -20,7 +20,7 @@ get_header();
 $hero_title    = get_theme_mod( 'hero_title', 'Chinh Phục IELTS - Đạt Điểm Cao' );
 $hero_subtitle = get_theme_mod( 'hero_subtitle', 'Ngay Lần Thi Đầu Tiên!' );
 $hero_feat1    = get_theme_mod( 'hero_feature_1', 'Lộ trình học cá nhân hóa theo trình độ' );
-$hero_feat2    = get_theme_mod( 'hero_feature_2', 'Giảng viên chuyên sâu, nhiều năm kinh nghiệm' );
+$hero_feat2    = get_theme_mod( 'hero_feature_2', 'Giảng viên chuyên sâu, many years experience' );
 $hero_feat3    = get_theme_mod( 'hero_feature_3', 'Cam kết đầu ra, hỗ trợ đến khi đạt mục tiêu' );
 
 $hero_bg = get_theme_mod( 'hero_bg_image' );
@@ -93,14 +93,23 @@ if ( empty( $student_pointer ) ) {
 	<section class="stats-section" id="stats-section">
 		<div class="container">
 			<div class="stats-bar">
-				<?php for ( $i = 1; $i <= 4; $i++ ) : 
-					$stat_num  = get_theme_mod( "stat_number_{$i}" );
-					$stat_desc = get_theme_mod( "stat_desc_{$i}" );
+				<?php 
+				$default_stats = array(
+					1 => array( 'num' => '30+', 'desc' => 'Nhân sự là chuyên gia trong lĩnh vực giáo dục và đào tạo' ),
+					2 => array( 'num' => '+1000', 'desc' => 'Học viên tiếp cận với chương trình học tiên tiến' ),
+					3 => array( 'num' => '11+', 'desc' => 'Năm nghiên cứu và hoạt động trong lĩnh vực giáo dục' ),
+					4 => array( 'num' => '90%', 'desc' => 'Học viên đạt được mục tiêu mong muốn' ),
+				);
+				$rendered_count = 0;
+				for ( $i = 1; $i <= 4; $i++ ) : 
+					$stat_num  = get_theme_mod( "stat_number_{$i}", $default_stats[$i]['num'] );
+					$stat_desc = get_theme_mod( "stat_desc_{$i}", $default_stats[$i]['desc'] );
 					if ( empty( $stat_num ) && empty( $stat_desc ) ) {
 						continue;
 					}
+					$rendered_count++;
 					?>
-					<?php if ( $i > 1 ) : ?>
+					<?php if ( $rendered_count > 1 ) : ?>
 						<div class="stat-divider"></div>
 					<?php endif; ?>
 					<div class="stat-item">
@@ -164,10 +173,10 @@ if ( empty( $student_pointer ) ) {
 	if ( empty( $courses_list ) ) {
 		for ( $i = 1; $i <= 4; $i++ ) {
 			$courses_list[] = array(
-				'title'         => 'Luyện thi IELTS ' . $i,
+				'title'         => 'Luyện thi Ielts',
 				'entry'         => 'Đầu vào: 0',
 				'exit'          => 'Đầu ra: 8.0+',
-				'mode'          => 'Online/ Offline',
+				'mode'          => 'Online/ Ofline',
 				'feat1'         => 'Đội ngũ giáo viên top đầu chuẩn sư phạm',
 				'feat2'         => 'Giáo trình được biên soạn đặc quyền',
 				'feat3'         => 'Giáo trình được biên soạn đặc quyền',
@@ -202,7 +211,7 @@ if ( empty( $student_pointer ) ) {
 
 					<div class="course-divider"></div>
 
-					<div class="courses-features-container">
+					<div class="course-features">
 						<div class="course-feature-item">
 							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/teacher.svg" alt="" class="course-feature-icon" width="45" height="45" loading="lazy">
 							<p class="course-feature-text"><?php echo esc_html( $first_course['feat1'] ); ?></p>

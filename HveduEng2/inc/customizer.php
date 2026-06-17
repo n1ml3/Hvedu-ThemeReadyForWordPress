@@ -52,7 +52,7 @@ function hvedueng2_customize_register( $wp_customize ) {
 	for ( $i = 1; $i <= 3; $i++ ) {
 		$default_features = array(
 			1 => 'Lộ trình học cá nhân hóa theo trình độ',
-			2 => 'Giảng viên chuyên sâu, nhiều năm kinh nghiệm',
+			2 => 'Giảng viên chuyên sâu, many years experience',
 			3 => 'Cam kết đầu ra, hỗ trợ đến khi đạt mục tiêu',
 		);
 		$wp_customize->add_setting( "hero_feature_{$i}", array(
