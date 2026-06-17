@@ -1,0 +1,123 @@
+/*
+  CSS cho Navbar Component:
+  - Định nghĩa các kiểu dáng riêng biệt cho menu điều hướng.
+  - Sử dụng các biến CSS toàn cục từ global.css để duy trì tính nhất quán.
+*/
+
+.navbar-custom {
+  background-color: var(--white, #ffffff);
+}
+
+/*
+  Phần chữ của logo thương hiệu:
+  - Tiêu đề chính sử dụng màu xanh Navy chủ đạo của thương hiệu.
+  - Phân chia font size rõ ràng theo tỷ lệ thiết kế Figma.
+*/
+.logo-title {
+  display: block;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--primary-color, #013475);
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.logo-subtitle {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--text-muted, #2f2f2f);
+  line-height: 1;
+}
+
+/*
+  Các liên kết menu (Menu Links):
+  - Kích thước 18px đúng như Figma thiết kế.
+  - Màu chữ sử dụng màu thương hiệu chính (--primary-color).
+  - Sử dụng transition để hiệu ứng hover mượt mà.
+*/
+.nav-link-custom {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--primary-color, #013475) !important;
+  padding: 8px 12px !important;
+}
+
+/*
+  Hiệu ứng hover cho link và trạng thái active:
+  - Chuyển màu sang xanh dương sáng (--secondary-color) và kích hoạt gạch chân của thương hiệu.
+*/
+.nav-link-custom:hover, 
+.nav-link-custom.active {
+  color: var(--secondary-color, #005ed6) !important;
+}
+
+/*
+  Tùy chỉnh nút dropdown toggle:
+  - Sử dụng hình ảnh arrow-down.svg từ thư mục assets làm biểu tượng mũi tên chỉ xuống.
+  - Định kích thước phù hợp và căn chỉnh dọc để cân đối với dòng chữ.
+*/
+.navbar-custom .dropdown-toggle::after {
+  vertical-align: middle;
+  border: none;
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-image: url("../assets/arrow-down.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 6px;
+}
+
+/*
+  Responsive styling cho menu di động:
+  - Khi thu gọn, căn chỉnh các menu item dọc và thêm border phân tách nhẹ để người dùng dễ thao tác trên màn hình cảm ứng.
+*/
+@media (max-width: 991.98px) {
+  .navbar-custom .navbar-nav {
+    align-items: flex-start !important;
+    width: 100%;
+    gap: 4px !important; /* Giãn cách nhẹ giữa các item */
+  }
+
+  .nav-link-custom {
+    font-size: 16px;
+    width: 100%;
+    text-align: left;
+    border-bottom: none !important; /* Loại bỏ border-bottom */
+    padding: 12px 16px !important;
+    border-radius: 6px;
+    transition: all 0.25s ease;
+  }
+  
+  .nav-link-custom:hover, 
+  .nav-link-custom.active {
+    background-color: var(--accent-light, #ebf8ff);
+    color: var(--secondary-color, #005ed6) !important;
+    padding-left: 24px !important; /* Micro-animation trượt nhẹ sang phải khi hover/active */
+  }
+  
+  .navbar-custom .dropdown-menu {
+    text-align: left;
+    box-shadow: none !important;
+    border: none;
+    background-color: var(--accent-light, #ebf8ff);
+    padding-left: 16px;
+  }
+}
+
+/*
+  Tối ưu hóa hiển thị cho màn hình Laptop nhỏ (như 1024px):
+  - Giảm font-size, padding và gap của các nav-link để toàn bộ menu hiển thị gọn gàng trên một dòng duy nhất.
+  - Chỉ áp dụng từ kích thước tablet ngang (992px) đến laptop nhỏ (1199.98px) để không ảnh hưởng đến các màn hình khác.
+*/
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .navbar-custom .navbar-nav {
+    gap: 12px !important; /* Giảm gap giữa các nav-item từ 24px xuống 12px */
+  }
+  .nav-link-custom {
+    font-size: 15px !important; /* Giảm cỡ chữ từ 18px xuống 15px */
+    padding: 8px 8px !important; /* Giảm padding ngang để các liên kết vừa khít */
+  }
+}

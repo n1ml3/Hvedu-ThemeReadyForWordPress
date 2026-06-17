@@ -26,6 +26,7 @@ services:
       - wp_data:/var/www/html
       - ./Hvedu2-theme:/var/www/html/wp-content/themes/Hvedu2
       - ./Hvedu3-theme:/var/www/html/wp-content/themes/Hvedu3
+      - ./HveduEng2:/var/www/html/wp-content/themes/HveduEng2
     depends_on:
       - db
 
