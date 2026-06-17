@@ -16,6 +16,11 @@ Phiên bản cải tiến với phong cách trẻ trung hơn, sử dụng các h
 
 ![Hvedu3 Screenshot](./Hvedu3-theme/screenshot.png)
 
+### 3. HveduEng2 Theme
+Giao diện Hệ thống Anh ngữ Quốc tế (HVG Education) hiện đại, chuyên sâu với bố cục tinh tế, tối ưu hóa hiển thị cho các trung tâm đào tạo tiếng Anh và luyện thi IELTS.
+
+![HveduEng2 Screenshot](./HveduEng2/screenshot.png)
+
 ---
 
 ## Tính năng nổi bật
@@ -55,7 +60,11 @@ Mỗi theme (Hvedu2 và Hvedu3) đều bao gồm các file lõi sau đây. Việ
 - **archive.php**: Chịu trách nhiệm hiển thị danh sách các bài viết theo Chuyên mục (Category), Thẻ (Tag), hoặc Tác giả dưới dạng lưới (Grid).
 - **index.php**: File dự phòng cuối cùng (Fallback) của hệ thống WordPress, đóng vai trò làm trang danh sách Blog chính.
 - **front-page.php**: Template riêng cho trang chủ hiển thị toàn bộ các phần Hero, CPT Courses, CPT FAQs, Testimonials, CTA.
-- **page-introduce.php** (Hvedu2): Template tùy biến dành riêng cho trang giới thiệu.
+- **page-introduce.php** (Hvedu2, HveduEng2): Template tùy biến dành riêng cho trang giới thiệu.
+- **page-courses.php** (HveduEng2): Template tùy biến hiển thị danh sách khóa học.
+- **page-courses-detail.php** (HveduEng2): Template tùy biến hiển thị chi tiết khóa học.
+- **page-calendar.php** (HveduEng2): Template tùy biến hiển thị lịch khai giảng.
+- **page-library.php** (HveduEng2): Template tùy biến hiển thị thư viện tài liệu.
 
 ---
 
