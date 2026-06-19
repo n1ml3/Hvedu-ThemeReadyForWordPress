@@ -52,7 +52,7 @@ function hvedu_theme_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'hvedu_theme_scripts' );
 
-// Tự động tạo trang Giới thiệu và thiết lập permalink để tránh lỗi 404
+// Tự động cấu hình permalink để tránh lỗi 404
 function hvedu_auto_setup_pages() {
     // 1. Cấu hình Permalink về dạng Post name (nếu chưa được cấu hình)
     global $wp_rewrite;
@@ -60,25 +60,6 @@ function hvedu_auto_setup_pages() {
         $wp_rewrite->set_permalink_structure('/%postname%/');
         update_option('rewrite_rules', FALSE);
         $wp_rewrite->flush_rules(true);
-    }
-
-    // 2. Tự động tạo trang "Giới thiệu" nếu chưa tồn tại
-    if ( ! get_option('hvedu_pages_created') ) {
-        $page_slug = 'introduce';
-        $page_check = get_page_by_path( $page_slug );
-        
-        if ( ! $page_check ) {
-            wp_insert_post( array(
-                'post_type'    => 'page',
-                'post_title'   => 'Giới thiệu',
-                'post_name'    => $page_slug,
-                'post_status'  => 'publish',
-                'post_author'  => 1,
-            ) );
-        }
-        
-        // Đánh dấu đã tạo để không chạy lại lệnh này nữa
-        update_option('hvedu_pages_created', true);
     }
 }
 add_action('init', 'hvedu_auto_setup_pages');
@@ -137,14 +118,16 @@ function hvedu_add_submenu_class($classes, $args, $depth) {
 }
 add_filter('nav_menu_submenu_css_class', 'hvedu_add_submenu_class', 10, 3);
 
-// Include Hvedu Theme Helpers
-require get_template_directory() . '/inc/post-types.php';
-require get_template_directory() . '/inc/customizer.php';
-require get_template_directory() . '/inc/contact-handler.php';
+// Include Hvedu Theme Helpers - Disabled for static theme
+// require get_template_directory() . '/inc/post-types.php';
+// require get_template_directory() . '/inc/customizer.php';
+// require get_template_directory() . '/inc/contact-handler.php';
 
 /**
  * Automatically populate dummy data for CPTs if they are empty, ensuring the theme displays nicely out of the box.
+ * Disabled for static theme.
  */
+/*
 function hvedu_populate_dummy_data() {
     if ( get_option( 'hvedu_dummy_data_populated' ) ) {
         return;
@@ -264,4 +247,5 @@ function hvedu_populate_dummy_data() {
     update_option( 'hvedu_dummy_data_populated', 1 );
 }
 add_action( 'init', 'hvedu_populate_dummy_data', 99 );
+*/
 

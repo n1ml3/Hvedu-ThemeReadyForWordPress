@@ -15,33 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 get_header();
 
 // ==========================================
-// FETCH CUSTOMIZER SETTINGS (HERO & VISUALS)
+// STATIC IMAGES & SETTINGS (HERO & VISUALS)
 // ==========================================
-$hero_title    = get_theme_mod( 'hero_title', 'Chinh Phục IELTS - Đạt Điểm Cao' );
-$hero_subtitle = get_theme_mod( 'hero_subtitle', 'Ngay Lần Thi Đầu Tiên!' );
-$hero_feat1    = get_theme_mod( 'hero_feature_1', 'Lộ trình học cá nhân hóa theo trình độ' );
-$hero_feat2    = get_theme_mod( 'hero_feature_2', 'Giảng viên chuyên sâu, many years experience' );
-$hero_feat3    = get_theme_mod( 'hero_feature_3', 'Cam kết đầu ra, hỗ trợ đến khi đạt mục tiêu' );
+$hero_title    = 'Chinh Phục IELTS - Đạt Điểm Cao';
+$hero_subtitle = 'Ngay Lần Thi Đầu Tiên!';
+$hero_feat1    = 'Lộ trình học cá nhân hóa theo trình độ';
+$hero_feat2    = 'Giảng viên chuyên sâu, many years experience';
+$hero_feat3    = 'Cam kết đầu ra, hỗ trợ đến khi đạt mục tiêu';
 
-$hero_bg = get_theme_mod( 'hero_bg_image' );
-if ( empty( $hero_bg ) ) {
-	$hero_bg = get_template_directory_uri() . '/assets/hero-banner.webp';
-}
-
-$faq_visual = get_theme_mod( 'faq_visual_image' );
-if ( empty( $faq_visual ) ) {
-	$faq_visual = get_template_directory_uri() . '/assets/qna-banner.webp';
-}
-
-$uk_flag = get_theme_mod( 'consultation_flag' );
-if ( empty( $uk_flag ) ) {
-	$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
-}
-
-$student_pointer = get_theme_mod( 'consultation_student' );
-if ( empty( $student_pointer ) ) {
-	$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
-}
+$hero_bg = get_template_directory_uri() . '/assets/hero-banner.webp';
+$faq_visual = get_template_directory_uri() . '/assets/qna-banner.webp';
+$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
+$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
 ?>
 
 <main>
@@ -61,24 +46,18 @@ if ( empty( $student_pointer ) ) {
 				<p class="hero-subheadline"><?php echo esc_html( $hero_subtitle ); ?></p>
 
 				<ul class="hero-features">
-					<?php if ( ! empty( $hero_feat1 ) ) : ?>
 					<li class="hero-feature-item">
 						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/tick.svg" alt="" class="hero-check-icon" width="30" height="30">
 						<span><?php echo esc_html( $hero_feat1 ); ?></span>
 					</li>
-					<?php endif; ?>
-					<?php if ( ! empty( $hero_feat2 ) ) : ?>
 					<li class="hero-feature-item">
 						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/tick.svg" alt="" class="hero-check-icon" width="30" height="30">
 						<span><?php echo esc_html( $hero_feat2 ); ?></span>
 					</li>
-					<?php endif; ?>
-					<?php if ( ! empty( $hero_feat3 ) ) : ?>
 					<li class="hero-feature-item">
 						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/tick.svg" alt="" class="hero-check-icon" width="30" height="30">
 						<span><?php echo esc_html( $hero_feat3 ); ?></span>
 					</li>
-					<?php endif; ?>
 				</ul>
 
 				<div class="hero-cta-group">
@@ -93,100 +72,52 @@ if ( empty( $student_pointer ) ) {
 	<section class="stats-section" id="stats-section">
 		<div class="container">
 			<div class="stats-bar">
-				<?php 
-				$default_stats = array(
-					1 => array( 'num' => '30+', 'desc' => 'Nhân sự là chuyên gia trong lĩnh vực giáo dục và đào tạo' ),
-					2 => array( 'num' => '+1000', 'desc' => 'Học viên tiếp cận với chương trình học tiên tiến' ),
-					3 => array( 'num' => '11+', 'desc' => 'Năm nghiên cứu và hoạt động trong lĩnh vực giáo dục' ),
-					4 => array( 'num' => '90%', 'desc' => 'Học viên đạt được mục tiêu mong muốn' ),
-				);
-				$rendered_count = 0;
-				for ( $i = 1; $i <= 4; $i++ ) : 
-					$stat_num  = get_theme_mod( "stat_number_{$i}", $default_stats[$i]['num'] );
-					$stat_desc = get_theme_mod( "stat_desc_{$i}", $default_stats[$i]['desc'] );
-					if ( empty( $stat_num ) && empty( $stat_desc ) ) {
-						continue;
-					}
-					$rendered_count++;
-					?>
-					<?php if ( $rendered_count > 1 ) : ?>
-						<div class="stat-divider"></div>
-					<?php endif; ?>
-					<div class="stat-item">
-						<span class="stat-number"><?php echo esc_html( $stat_num ); ?></span>
-						<p class="stat-desc"><?php echo esc_html( $stat_desc ); ?></p>
-					</div>
-				<?php endfor; ?>
+				<div class="stat-item">
+					<span class="stat-number">30+</span>
+					<p class="stat-desc">Nhân sự là chuyên gia trong lĩnh vực giáo dục và đào tạo</p>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat-item">
+					<span class="stat-number">+1000</span>
+					<p class="stat-desc">Học viên tiếp cận với chương trình học tiên tiến</p>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat-item">
+					<span class="stat-number">11+</span>
+					<p class="stat-desc">Năm nghiên cứu và hoạt động trong lĩnh vực giáo dục</p>
+				</div>
+				<div class="stat-divider"></div>
+				<div class="stat-item">
+					<span class="stat-number">90%</span>
+					<p class="stat-desc">Học viên đạt được mục tiêu mong muốn</p>
+				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Courses Section (CPT hvedu_course) -->
+	<!-- Courses Section -->
 	<?php
-	$courses_query = new WP_Query( array(
-		'post_type'      => 'hvedu_course',
-		'posts_per_page' => 4,
-		'post_status'    => 'publish',
-		'orderby'        => 'date',
-		'order'          => 'ASC',
-	) );
-
 	$courses_list = array();
-	if ( $courses_query->have_posts() ) {
-		while ( $courses_query->have_posts() ) {
-			$courses_query->the_post();
-			$c_id = get_the_ID();
-			
-			$entry = get_post_meta( $c_id, '_course_entry', true );
-			$exit  = get_post_meta( $c_id, '_course_exit', true );
-			$mode  = get_post_meta( $c_id, '_course_mode', true );
-			
-			$feat1 = get_post_meta( $c_id, '_course_feat1', true );
-			$feat2 = get_post_meta( $c_id, '_course_feat2', true );
-			$feat3 = get_post_meta( $c_id, '_course_feat3', true );
-			
-			$t_name  = get_post_meta( $c_id, '_course_teacher_name', true );
-			$t_score = get_post_meta( $c_id, '_course_teacher_score', true );
-
-			$img = get_the_post_thumbnail_url( $c_id, 'large' );
-			if ( empty( $img ) ) {
-				$img = get_template_directory_uri() . '/assets/course-teacher.webp';
-			}
-
-			$courses_list[] = array(
-				'title'         => get_the_title(),
-				'entry'         => $entry ? $entry : 'Đầu vào: 0',
-				'exit'          => $exit ? $exit : 'Đầu ra: 8.0+',
-				'mode'          => $mode ? $mode : 'Online/ Offline',
-				'feat1'         => $feat1 ? $feat1 : 'Đội ngũ giáo viên top đầu chuẩn sư phạm',
-				'feat2'         => $feat2 ? $feat2 : 'Giáo trình được biên soạn đặc quyền',
-				'feat3'         => $feat3 ? $feat3 : 'Giáo trình được biên soạn đặc quyền',
-				'teacher_name'  => $t_name ? $t_name : 'Ms. Trinh My Hanh',
-				'teacher_score' => $t_score ? $t_score : '8.5',
-				'img_url'       => $img,
-			);
-		}
-		wp_reset_postdata();
+	for ( $i = 1; $i <= 4; $i++ ) {
+		$titles = array(
+			1 => 'Luyện thi Ielts - Cam kết 6.5',
+			2 => 'Khóa IELTS Intensive',
+			3 => 'Khóa IELTS General',
+			4 => 'Khóa IELTS Foundation'
+		);
+		$courses_list[] = array(
+			'title'         => $titles[$i],
+			'entry'         => 'Đầu vào: 0',
+			'exit'          => 'Đầu ra: 8.0+',
+			'mode'          => 'Online/ Offline',
+			'feat1'         => 'Đội ngũ giáo viên top đầu chuẩn sư phạm',
+			'feat2'         => 'Giáo trình được biên soạn đặc quyền',
+			'feat3'         => 'Giáo trình được biên soạn đặc quyền',
+			'teacher_name'  => 'Ms. Trinh My Hanh',
+			'teacher_score' => '8.5',
+			'img_url'       => get_template_directory_uri() . '/assets/course-teacher.webp',
+		);
 	}
-
-	// Fallback dynamic defaults if client hasn't added courses yet
-	if ( empty( $courses_list ) ) {
-		for ( $i = 1; $i <= 4; $i++ ) {
-			$courses_list[] = array(
-				'title'         => 'Luyện thi Ielts',
-				'entry'         => 'Đầu vào: 0',
-				'exit'          => 'Đầu ra: 8.0+',
-				'mode'          => 'Online/ Ofline',
-				'feat1'         => 'Đội ngũ giáo viên top đầu chuẩn sư phạm',
-				'feat2'         => 'Giáo trình được biên soạn đặc quyền',
-				'feat3'         => 'Giáo trình được biên soạn đặc quyền',
-				'teacher_name'  => 'Ms. Trinh My Hanh',
-				'teacher_score' => '8.5',
-				'img_url'       => get_template_directory_uri() . '/assets/course-teacher.webp',
-			);
-		}
-	}
-
 	$first_course = $courses_list[0];
 	?>
 	<section class="courses-section" id="courses-section">
@@ -277,40 +208,23 @@ if ( empty( $student_pointer ) ) {
 		</div>
 	</section>
 
-	<!-- Reasons Section (CPT hvedu_reason) -->
+	<!-- Reasons Section -->
 	<?php
-	$reasons_query = new WP_Query( array(
-		'post_type'      => 'hvedu_reason',
-		'posts_per_page' => 6,
-		'post_status'    => 'publish',
-	) );
-
 	$reasons_list = array();
-	if ( $reasons_query->have_posts() ) {
-		while ( $reasons_query->have_posts() ) {
-			$reasons_query->the_post();
-			$icon = get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' );
-			if ( empty( $icon ) ) {
-				$icon = get_template_directory_uri() . '/assets/medal.svg';
-			}
-			$reasons_list[] = array(
-				'title' => get_the_title(),
-				'desc'  => get_the_content(),
-				'icon'  => $icon,
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no reasons created yet
-	if ( empty( $reasons_list ) ) {
-		for ( $i = 1; $i <= 6; $i++ ) {
-			$reasons_list[] = array(
-				'title' => 'Cam kết hỗ trợ học viên ' . $i,
-				'desc'  => 'Học viên được đồng hành và hỗ trợ liên tục cho đến khi đạt được mục tiêu đề ra.',
-				'icon'  => get_template_directory_uri() . '/assets/medal.svg',
-			);
-		}
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$reasons_titles = array(
+			1 => 'Đội ngũ giáo viên top đầu chuẩn sư phạm',
+			2 => 'Giáo trình được biên soạn đặc quyền',
+			3 => 'Cam kết hỗ trợ học viên đạt mục tiêu',
+			4 => 'Hỗ trợ sửa bài viết và luyện nói 1-1',
+			5 => 'Môi trường học tập hiện đại, đầy cảm hứng',
+			6 => 'Chương trình học cá nhân hóa theo lộ trình'
+		);
+		$reasons_list[] = array(
+			'title' => $reasons_titles[$i],
+			'desc'  => 'Học viên được đồng hành và hỗ trợ liên tục cho đến khi đạt được mục tiêu đề ra.',
+			'icon'  => get_template_directory_uri() . '/assets/medal.svg',
+		);
 	}
 	?>
 	<section class="reasons-section container" id="reasons-section">
@@ -385,52 +299,18 @@ if ( empty( $student_pointer ) ) {
 		</div>
 	</section>
 
-	<!-- Teachers Section (CPT hvedu_teacher) -->
+	<!-- Teachers Section -->
 	<?php
-	$teachers_query = new WP_Query( array(
-		'post_type'      => 'hvedu_teacher',
-		'posts_per_page' => 3,
-		'post_status'    => 'publish',
-	) );
-
 	$teachers_list = array();
-	if ( $teachers_query->have_posts() ) {
-		while ( $teachers_query->have_posts() ) {
-			$teachers_query->the_post();
-			$t_id = get_the_ID();
-			$avatar = get_the_post_thumbnail_url( $t_id, 'medium' );
-			if ( empty( $avatar ) ) {
-				$avatar = get_template_directory_uri() . '/assets/teacher.webp';
-			}
-			$role  = get_post_meta( $t_id, '_teacher_role', true );
-			$meta1 = get_post_meta( $t_id, '_teacher_meta1', true );
-			$meta2 = get_post_meta( $t_id, '_teacher_meta2', true );
-			$meta3 = get_post_meta( $t_id, '_teacher_meta3', true );
-
-			$teachers_list[] = array(
-				'name'   => get_the_title(),
-				'avatar' => $avatar,
-				'role'   => $role ? $role : 'Giảng viên',
-				'meta1'  => $meta1 ? $meta1 : 'Overall : 8.5 Ielts',
-				'meta2'  => $meta2 ? $meta2 : 'Tốt nghiệp loại giỏi ĐH Sư phạm',
-				'meta3'  => $meta3 ? $meta3 : 'Kinh nghiệm 7 năm giảng dạy',
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no teachers created yet
-	if ( empty( $teachers_list ) ) {
-		for ( $i = 1; $i <= 3; $i++ ) {
-			$teachers_list[] = array(
-				'name'   => 'Phạm Phương Dung',
-				'avatar' => get_template_directory_uri() . '/assets/teacher.webp',
-				'role'   => 'Giảng viên',
-				'meta1'  => 'Overall : 8.5 Ielts',
-				'meta2'  => 'Tốt nghiệp loại giỏi ĐH Sư phạm',
-				'meta3'  => 'Kinh nghiệm 7 năm giảng dạy',
-			);
-		}
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$teachers_list[] = array(
+			'name'   => 'Phạm Phương Dung',
+			'avatar' => get_template_directory_uri() . '/assets/teacher.webp',
+			'role'   => 'Giảng viên',
+			'meta1'  => 'Overall : 8.5 Ielts',
+			'meta2'  => 'Tốt nghiệp loại giỏi ĐH Sư phạm',
+			'meta3'  => 'Kinh nghiệm 7 năm giảng dạy',
+		);
 	}
 	?>
 	<section class="teachers-section" id="teachers-section">
@@ -463,7 +343,7 @@ if ( empty( $student_pointer ) ) {
 		</div>
 	</section>
 
-	<!-- Knowledge Section (Dynamic standard posts loop) -->
+	<!-- Knowledge Section -->
 	<section class="knowledge-section" id="knowledge-section">
 		<div class="knowledge-container">
 			<div class="knowledge-header">
@@ -472,97 +352,59 @@ if ( empty( $student_pointer ) ) {
 			</div>
 
 			<div class="knowledge-grid">
-				<?php
-				$blog_args = array(
-					'post_type'      => 'post',
-					'posts_per_page' => 3,
-					'post_status'    => 'publish',
-				);
-				$blog_query = new WP_Query( $blog_args );
-				if ( $blog_query->have_posts() ) :
-					while ( $blog_query->have_posts() ) : $blog_query->the_post();
-						?>
-						<div class="knowledge-card">
-							<div class="knowledge-card-cover">
-								<?php if ( has_post_thumbnail() ) : ?>
-									<?php the_post_thumbnail( 'medium_large', array( 'class' => 'knowledge-card-img', 'alt' => get_the_title() ) ); ?>
-								<?php else : ?>
-									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="<?php the_title_attribute(); ?>" class="knowledge-card-img" width="346" height="214" loading="lazy">
-								<?php endif; ?>
+				<div class="knowledge-card">
+					<div class="knowledge-card-cover">
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
+					</div>
+					<div class="knowledge-card-body">
+						<h3 class="knowledge-card-title">
+							<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
+						</h3>
+						<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
+						<div class="knowledge-card-footer">
+							<div class="knowledge-card-date-icon">
+								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
 							</div>
-							<div class="knowledge-card-body">
-								<h3 class="knowledge-card-title">
-									<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-								</h3>
-								<p class="knowledge-card-desc"><?php echo wp_trim_words( get_the_excerpt(), 18, '...' ); ?></p>
-								<div class="knowledge-card-footer">
-									<div class="knowledge-card-date-icon">
-										<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
-									</div>
-									<span class="knowledge-card-date-text"><?php echo get_the_date( 'd/m/Y' ); ?></span>
-								</div>
-							</div>
-						</div>
-						<?php
-					endwhile;
-					wp_reset_postdata();
-				else :
-					// Fallback to static cards if no posts exist yet
-					?>
-					<div class="knowledge-card">
-						<div class="knowledge-card-cover">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
-						</div>
-						<div class="knowledge-card-body">
-							<h3 class="knowledge-card-title">
-								<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
-							</h3>
-							<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
-							<div class="knowledge-card-footer">
-								<div class="knowledge-card-date-icon">
-									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
-								</div>
-								<span class="knowledge-card-date-text">27/03/2025</span>
-							</div>
+							<span class="knowledge-card-date-text">27/03/2025</span>
 						</div>
 					</div>
+				</div>
 
-					<div class="knowledge-card">
-						<div class="knowledge-card-cover">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
-						</div>
-						<div class="knowledge-card-body">
-							<h3 class="knowledge-card-title">
-								<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
-							</h3>
-							<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
-							<div class="knowledge-card-footer">
-								<div class="knowledge-card-date-icon">
-									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
-								</div>
-								<span class="knowledge-card-date-text">27/03/2025</span>
+				<div class="knowledge-card">
+					<div class="knowledge-card-cover">
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
+					</div>
+					<div class="knowledge-card-body">
+						<h3 class="knowledge-card-title">
+							<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
+						</h3>
+						<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
+						<div class="knowledge-card-footer">
+							<div class="knowledge-card-date-icon">
+								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
 							</div>
+							<span class="knowledge-card-date-text">27/03/2025</span>
 						</div>
 					</div>
+				</div>
 
-					<div class="knowledge-card">
-						<div class="knowledge-card-cover">
-							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
-						</div>
-						<div class="knowledge-card-body">
-							<h3 class="knowledge-card-title">
-								<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
-							</h3>
-							<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
-							<div class="knowledge-card-footer">
-								<div class="knowledge-card-date-icon">
-									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
-								</div>
-								<span class="knowledge-card-date-text">27/03/2025</span>
+				<div class="knowledge-card">
+					<div class="knowledge-card-cover">
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/blog-banner.webp" alt="" class="knowledge-card-img" width="346" height="214" loading="lazy">
+					</div>
+					<div class="knowledge-card-body">
+						<h3 class="knowledge-card-title">
+							<a href="#">Hướng dẫn cách viết IELTS Writing task 1 Line Graph chi tiết</a>
+						</h3>
+						<p class="knowledge-card-desc">Matching Headings (nối tiêu đề) là dạng bài thường xuyên xuất hiện nhất trong đề thi IELTS Reading....</p>
+						<div class="knowledge-card-footer">
+							<div class="knowledge-card-date-icon">
+								<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/calendar.svg" alt="Calendar Icon" width="18" height="18" loading="lazy">
 							</div>
+							<span class="knowledge-card-date-text">27/03/2025</span>
 						</div>
 					</div>
-				<?php endif; ?>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -620,47 +462,26 @@ if ( empty( $student_pointer ) ) {
 		</div>
 	</section>
 
-	<!-- FAQ Section (CPT hvedu_faq) -->
+	<!-- FAQ Section -->
 	<?php
-	$faqs_query = new WP_Query( array(
-		'post_type'      => 'hvedu_faq',
-		'posts_per_page' => 10,
-		'post_status'    => 'publish',
-	) );
-
-	$faqs_list = array();
-	if ( $faqs_query->have_posts() ) {
-		while ( $faqs_query->have_posts() ) {
-			$faqs_query->the_post();
-			$faqs_list[] = array(
-				'q' => get_the_title(),
-				'a' => get_the_content(),
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no FAQs created yet
-	if ( empty( $faqs_list ) ) {
-		$faqs_list = array(
-			array(
-				'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
-				'a' => 'Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.',
-			),
-			array(
-				'q' => 'Chương trình đào tạo IELTS tại HVG',
-				'a' => 'HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.',
-			),
-			array(
-				'q' => 'Học phí tại IELTS tại HVG như thế nào?',
-				'a' => 'Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.',
-			),
-			array(
-				'q' => 'Thi thử IELTS như thế nào?',
-				'a' => 'Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.',
-			),
-		);
-	}
+	$faqs_list = array(
+		array(
+			'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
+			'a' => 'Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.',
+		),
+		array(
+			'q' => 'Chương trình đào tạo IELTS tại HVG',
+			'a' => 'HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.',
+		),
+		array(
+			'q' => 'Học phí tại IELTS tại HVG như thế nào?',
+			'a' => 'Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.',
+		),
+		array(
+			'q' => 'Thi thử IELTS như thế nào?',
+			'a' => 'Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.',
+		),
+	);
 	?>
 	<section class="faq-section" id="faq-section">
 		<div class="faq-container">

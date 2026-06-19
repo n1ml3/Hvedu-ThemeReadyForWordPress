@@ -31,46 +31,23 @@ get_header();
 <main>
 	<!-- Section: Danh sách khóa học -->
 	<?php
-	$courses_query = new WP_Query( array(
-		'post_type'      => 'hvedu_course',
-		'posts_per_page' => -1, // Show all courses
-		'post_status'    => 'publish',
-		'orderby'        => 'date',
-		'order'          => 'ASC',
-	) );
-
 	$courses_list = array();
-	if ( $courses_query->have_posts() ) {
-		while ( $courses_query->have_posts() ) {
-			$courses_query->the_post();
-			$c_id = get_the_ID();
-			
-			$duration = get_post_meta( $c_id, '_course_duration', true );
-			$lessons  = get_post_meta( $c_id, '_course_lessons', true );
-			$label    = get_post_meta( $c_id, '_course_label', true );
-
-			$courses_list[] = array(
-				'title'    => get_the_title(),
-				'desc'     => get_the_content(),
-				'duration' => $duration ? $duration : '1.5 tháng',
-				'lessons'  => $lessons ? $lessons : '6 lesson',
-				'label'    => $label ? $label : 'Mất gốc',
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no courses created yet
-	if ( empty( $courses_list ) ) {
-		for ( $i = 1; $i <= 6; $i++ ) {
-			$courses_list[] = array(
-				'title'    => 'Khoá Prime( 0-2.0)',
-				'desc'     => 'Khóa học IELTS Prime dành cho người mất gốc, khóa học giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.',
-				'duration' => '1.5 tháng',
-				'lessons'  => '6 lesson',
-				'label'    => 'Mất gốc',
-			);
-		}
+	$courses_titles = array(
+		1 => 'Khoá Prime( 0-2.0)',
+		2 => 'Khoá IELTS Foundation (2.0-3.5)',
+		3 => 'Khoá IELTS Intermediate (3.5-5.0)',
+		4 => 'Khoá IELTS Upper-Intermediate (5.0-6.0)',
+		5 => 'Khoá IELTS Intensive (6.0-7.0)',
+		6 => 'Khoá IELTS Advanced (7.0+)'
+	);
+	for ( $i = 1; $i <= 6; $i++ ) {
+		$courses_list[] = array(
+			'title'    => $courses_titles[$i],
+			'desc'     => 'Khóa học IELTS dành cho học viên muốn nâng cao trình độ, giúp bạn tiếp cận tiếng Anh dễ dàng hơn với các chủ điểm từ vựng, ngữ pháp cơ bản, biết cách phát âm nguyên âm, phụ âm, trọng âm, âm đuôi và nối âm.',
+			'duration' => '1.5 tháng',
+			'lessons'  => '6 lesson',
+			'label'    => 'Mất gốc',
+		);
 	}
 	?>
 	<section class="courses-grid-section">
@@ -109,15 +86,8 @@ get_header();
 
 	<!-- Consultation Section -->
 	<?php
-	$uk_flag = get_theme_mod( 'consultation_flag' );
-	if ( empty( $uk_flag ) ) {
-		$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
-	}
-
-	$student_pointer = get_theme_mod( 'consultation_student' );
-	if ( empty( $student_pointer ) ) {
-		$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
-	}
+	$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
+	$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
 	?>
 	<section class="consultation-section" id="consultation-section">
 		<div class="consultation-uk-flag">

@@ -103,67 +103,35 @@ get_header();
 						</div>
 						<h3 class="vision-box-title">Tầm nhìn</h3>
 					</div>
+					<p class="vision-box-desc" style="padding-left: 60px; color: #555;">Kiến tạo cộng đồng doanh nghiệp thịnh vượng thông qua việc phát triển tư duy thực chiến và hệ thống vận hành hoàn hảo nhất.</p>
 				</div>
 
 				<!-- Mission Box -->
-				<div class="mission-box">
+				<div class="mission-box" style="margin-top: 30px;">
 					<div class="mission-box-header">
 						<div class="mission-box-icon">
 							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/target.svg" alt="Biểu tượng Sứ mệnh">
 						</div>
 						<h3 class="mission-box-title">Sứ mệnh</h3>
 					</div>
+					<p class="mission-box-desc" style="padding-left: 60px; color: #555;">Đồng hành cùng hàng nghìn nhà quản trị Việt Nam, cung cấp giải pháp coaching thực tế mang tính thực dụng cao, giúp doanh nghiệp phát triển bền vững.</p>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!-- Teachers Section (CPT hvedu_teacher) -->
+	<!-- Teachers Section -->
 	<?php
-	$teachers_query = new WP_Query( array(
-		'post_type'      => 'hvedu_teacher',
-		'posts_per_page' => 3,
-		'post_status'    => 'publish',
-	) );
-
 	$teachers_list = array();
-	if ( $teachers_query->have_posts() ) {
-		while ( $teachers_query->have_posts() ) {
-			$teachers_query->the_post();
-			$t_id = get_the_ID();
-			$avatar = get_the_post_thumbnail_url( $t_id, 'medium' );
-			if ( empty( $avatar ) ) {
-				$avatar = get_template_directory_uri() . '/assets/teacher.webp';
-			}
-			$role  = get_post_meta( $t_id, '_teacher_role', true );
-			$meta1 = get_post_meta( $t_id, '_teacher_meta1', true );
-			$meta2 = get_post_meta( $t_id, '_teacher_meta2', true );
-			$meta3 = get_post_meta( $t_id, '_teacher_meta3', true );
-
-			$teachers_list[] = array(
-				'name'   => get_the_title(),
-				'avatar' => $avatar,
-				'role'   => $role ? $role : 'Giảng viên',
-				'meta1'  => $meta1 ? $meta1 : 'Overall : 8.5 Ielts',
-				'meta2'  => $meta2 ? $meta2 : 'Tốt nghiệp loại giỏi ĐH Sư phạm',
-				'meta3'  => $meta3 ? $meta3 : 'Kinh nghiệm 7 năm giảng dạy',
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no teachers created yet
-	if ( empty( $teachers_list ) ) {
-		for ( $i = 1; $i <= 3; $i++ ) {
-			$teachers_list[] = array(
-				'name'   => 'Phạm Phương Dung',
-				'avatar' => get_template_directory_uri() . '/assets/teacher.webp',
-				'role'   => 'Giảng viên',
-				'meta1'  => 'Overall : 8.5 Ielts',
-				'meta2'  => 'Tốt nghiệp loại giỏi ĐH Sư phạm',
-				'meta3'  => 'Kinh nghiệm 7 năm giảng dạy',
-			);
-		}
+	for ( $i = 1; $i <= 3; $i++ ) {
+		$teachers_list[] = array(
+			'name'   => 'Phạm Phương Dung',
+			'avatar' => get_template_directory_uri() . '/assets/teacher.webp',
+			'role'   => 'Giảng viên',
+			'meta1'  => 'Overall : 8.5 Ielts',
+			'meta2'  => 'Tốt nghiệp loại giỏi ĐH Sư phạm',
+			'meta3'  => 'Kinh nghiệm 7 năm giảng dạy',
+		);
 	}
 	?>
 	<section class="teachers-section" id="teachers-section">
@@ -196,52 +164,27 @@ get_header();
 		</div>
 	</section>
 
-	<!-- FAQ Section (CPT hvedu_faq) -->
+	<!-- FAQ Section -->
 	<?php
-	$faq_visual = get_theme_mod( 'faq_visual_image' );
-	if ( empty( $faq_visual ) ) {
-		$faq_visual = get_template_directory_uri() . '/assets/qna-banner.webp';
-	}
-
-	$faqs_query = new WP_Query( array(
-		'post_type'      => 'hvedu_faq',
-		'posts_per_page' => 10,
-		'post_status'    => 'publish',
-	) );
-
-	$faqs_list = array();
-	if ( $faqs_query->have_posts() ) {
-		while ( $faqs_query->have_posts() ) {
-			$faqs_query->the_post();
-			$faqs_list[] = array(
-				'q' => get_the_title(),
-				'a' => get_the_content(),
-			);
-		}
-		wp_reset_postdata();
-	}
-
-	// Fallback dynamic defaults if no FAQs created yet
-	if ( empty( $faqs_list ) ) {
-		$faqs_list = array(
-			array(
-				'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
-				'a' => 'Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.',
-			),
-			array(
-				'q' => 'Chương trình đào tạo IELTS tại HVG',
-				'a' => 'HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.',
-			),
-			array(
-				'q' => 'Học phí tại IELTS tại HVG như thế nào?',
-				'a' => 'Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.',
-			),
-			array(
-				'q' => 'Thi thử IELTS như thế nào?',
-				'a' => 'Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.',
-			),
-		);
-	}
+	$faq_visual = get_template_directory_uri() . '/assets/qna-banner.webp';
+	$faqs_list = array(
+		array(
+			'q' => 'Độ tuổi nào có thể tham gia chương trình học tại trung tâm?',
+			'a' => 'Chương trình của HVG được xây dựng đa dạng cho học sinh từ 12 tuổi trở lên, sinh viên và người đi làm muốn cải thiện kỹ năng tiếng Anh và thi chứng chỉ IELTS.',
+		),
+		array(
+			'q' => 'Chương trình đào tạo IELTS tại HVG',
+			'a' => 'HVG cung cấp lộ trình học cá nhân hóa toàn diện từ cơ bản đến nâng cao (cam kết đầu ra 6.5 - 8.0+), tập trung phát triển đều 4 kỹ năng Nghe - Nói - Đọc - Viết.',
+		),
+		array(
+			'q' => 'Học phí tại IELTS tại HVG như thế nào?',
+			'a' => 'Học phí tại HVG cực kỳ linh hoạt, phù hợp với lộ trình học tập của từng học viên. Trung tâm thường xuyên có các chương trình học bổng và ưu đãi hấp dẫn.',
+		),
+		array(
+			'q' => 'Thi thử IELTS như thế nào?',
+			'a' => 'Học viên được tham gia các kỳ thi thử (Mock Test) miễn phí định kỳ với đề thi thật cập nhật liên tục để đánh giá chính xác trình độ hiện tại.',
+		),
+	);
 	?>
 	<section class="faq-section" id="faq-section">
 		<div class="faq-container">

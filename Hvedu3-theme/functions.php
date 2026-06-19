@@ -114,14 +114,16 @@ function hvedu_add_submenu_class($classes, $args, $depth) {
 }
 add_filter('nav_menu_submenu_css_class', 'hvedu_add_submenu_class', 10, 3);
 
-// Include Hvedu3 Theme Helpers
-require get_template_directory() . '/inc/post-types.php';
-require get_template_directory() . '/inc/customizer.php';
-require get_template_directory() . '/inc/contact-handler.php';
+// Include Hvedu3 Theme Helpers - Disabled for static theme
+// require get_template_directory() . '/inc/post-types.php';
+// require get_template_directory() . '/inc/customizer.php';
+// require get_template_directory() . '/inc/contact-handler.php';
 
 /**
  * Automatically populate dummy data for CPTs if they are empty for Theme 3.
+ * Disabled for static theme.
  */
+/*
 function hvedu3_populate_dummy_data() {
     if ( get_option( 'hvedu3_dummy_data_populated' ) ) {
         return;
@@ -241,4 +243,5 @@ function hvedu3_populate_dummy_data() {
     update_option( 'hvedu3_dummy_data_populated', 1 );
 }
 add_action( 'init', 'hvedu3_populate_dummy_data', 99 );
+*/
 

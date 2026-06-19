@@ -124,15 +124,8 @@ get_header();
 
 <!-- Consultation Section -->
 <?php
-$uk_flag = get_theme_mod( 'consultation_flag' );
-if ( empty( $uk_flag ) ) {
-	$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
-}
-
-$student_pointer = get_theme_mod( 'consultation_student' );
-if ( empty( $student_pointer ) ) {
-	$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
-}
+$uk_flag = get_template_directory_uri() . '/assets/uk-flag.svg';
+$student_pointer = get_template_directory_uri() . '/assets/pointer.webp';
 ?>
 <section class="consultation-section" id="consultation-section">
 	<div class="consultation-uk-flag">

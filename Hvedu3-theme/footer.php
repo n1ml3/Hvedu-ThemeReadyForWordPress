@@ -69,7 +69,7 @@
                                 </span>
                                 <div class="footer-contact-text">
                                     <strong>Địa chỉ:</strong>
-                                    <span><?php echo esc_html( get_theme_mod( 'contact_address', 'Số 33, Trung Kính, Phường Trung Hòa, Quận Cầu Giấy, TP Hà Nội' ) ); ?></span>
+                                    <span>Số 33, Trung Kính, Phường Trung Hòa, Quận Cầu Giấy, TP Hà Nội</span>
                                 </div>
                             </li>
 
@@ -80,7 +80,7 @@
                                 </span>
                                 <div class="footer-contact-text">
                                     <strong>Hotline:</strong>
-                                    <span><?php echo esc_html( get_theme_mod( 'contact_phone', '(+84)123456789' ) ); ?></span>
+                                    <span>(+84)123456789</span>
                                 </div>
                             </li>
 
@@ -91,7 +91,7 @@
                                 </span>
                                 <div class="footer-contact-text">
                                     <strong>Email:</strong>
-                                    <span><?php echo esc_html( get_theme_mod( 'contact_email', 'hoangvugroup@gmail.com' ) ); ?></span>
+                                    <span>hoangvugroup@gmail.com</span>
                                 </div>
                             </li>
                         </ul>
