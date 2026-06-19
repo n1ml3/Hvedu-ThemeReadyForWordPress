@@ -34,7 +34,6 @@ get_header(); ?>
                     <!-- Call to action button -->
                     <a href="<?php echo esc_url( home_url('/') ); ?>" class="btn btn-primary px-4 py-3 fw-bold rounded-pill text-white shadow-sm transition-all" style="background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); border: none;">
                         Quay lại Trang chủ
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/arrow-right-white.svg" alt="" style="margin-left: 8px; width: 16px;">
                     </a>
                 </div>
             </div>
