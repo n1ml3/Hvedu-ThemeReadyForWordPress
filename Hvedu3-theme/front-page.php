@@ -92,7 +92,7 @@ get_header(); ?>
     </section>
 
     <!-- ===== Khoá học nổi bật ===== -->
-    <section class="courses-section">
+    <section class="courses-section" id="courses">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/feature-shape-3.png" alt="" class="courses-decor" aria-hidden="true">
 
         <div class="container-xxl px-4">
@@ -200,7 +200,7 @@ get_header(); ?>
     </section>
 
     <!-- ===== Khám phá các danh mục hàng đầu ===== -->
-    <section class="categories-section">
+    <section class="categories-section" id="categories">
         <div class="container-xxl px-4">
             <div class="categories-wrapper">
                 <!-- Header: Nút Xem tất cả -->
@@ -277,7 +277,7 @@ get_header(); ?>
     </section>
 
     <!-- Questions Section -->
-    <section class="questions-section">
+    <section class="questions-section" id="questions">
         <div class="container-xxl px-4">
             <div class="row align-items-center">
                 <!-- Left content: Image Collage -->
@@ -361,7 +361,7 @@ get_header(); ?>
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section">
+    <section class="testimonials-section" id="testimonials">
         <div class="container-xxl px-4 testimonials-container">
             <div class="testimonials-decor decor-x">
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/cross-white.svg" alt="" style="width: 100%">
@@ -421,7 +421,7 @@ get_header(); ?>
     </section>
 
     <!-- Blog & Kiến thức bổ ích Section -->
-    <section class="blog-section">
+    <section class="blog-section" id="blog">
         <div class="container-xxl px-4">
             <h2 class="blog-title">Blog & kiến thức bổ ích</h2>
 

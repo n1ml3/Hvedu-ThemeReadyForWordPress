@@ -38,16 +38,38 @@
         <div class="collapse navbar-collapse" id="navbarMain">
             <!-- Nav links — căn giữa -->
             <?php
-            wp_nav_menu( array(
-                'theme_location' => 'primary',
-                'container'      => false,
-                'menu_class'     => 'navbar-nav mx-auto gap-lg-4',
-                'fallback_cb'    => '__return_false',
-                'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-                'add_li_class'   => 'nav-item',
-                'add_a_class'    => 'nav-link',
-                'depth'          => 2,
-            ) );
+            if ( has_nav_menu( 'primary' ) ) {
+                wp_nav_menu( array(
+                    'theme_location' => 'primary',
+                    'container'      => false,
+                    'menu_class'     => 'navbar-nav mx-auto gap-lg-4',
+                    'fallback_cb'    => '__return_false',
+                    'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'add_li_class'   => 'nav-item',
+                    'add_a_class'    => 'nav-link',
+                    'depth'          => 2,
+                ) );
+            } else {
+                ?>
+                <ul class="navbar-nav mx-auto gap-lg-4">
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo is_front_page() ? 'active' : ''; ?>" href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo is_page_template( 'page-templates/page-introduce.php' ) ? 'active' : ''; ?>" href="<?php echo esc_url( home_url( '/introduce' ) ); ?>">Giới thiệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo esc_url( home_url( '/#courses' ) ); ?>">Khóa học</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo esc_url( home_url( '/#documents' ) ); ?>">Tài liệu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo esc_url( home_url( '/#contact' ) ); ?>">Liên hệ</a>
+                    </li>
+                </ul>
+                <?php
+            }
             ?>
 
             <!-- Actions bên phải -->

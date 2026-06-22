@@ -72,7 +72,7 @@ get_header(); ?>
     </section>
 
     <!-- Service Section -->
-    <section class="services_course">
+    <section class="services_course" id="courses">
         <div class="container-xxl">
 
             <!-- Tiêu đề services section -->
@@ -219,7 +219,7 @@ get_header(); ?>
     </section>
 
     <!-- Documents Section -->
-    <section class="documents">
+    <section class="documents" id="documents">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/document-bg.png" alt="" class="documents-bg-shape">
         <div class="container-xxl">
             
@@ -464,7 +464,7 @@ get_header(); ?>
 </main>
 
 <!-- Contact Section -->
-<section class="contact-section">
+<section class="contact-section" id="contact">
     <div class="container-xxl px-4">
         <div class="contact-container">
             
